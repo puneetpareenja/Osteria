@@ -66,6 +66,7 @@ $('#btnRegister').click(() => {
                 var errorCode = error.code;
                 var errorMessage = error.message;
                 // ...
+                window.alert("Error: " + errorMessage);
               });
         }
         else
@@ -74,5 +75,28 @@ $('#btnRegister').click(() => {
     }
     else
         window.alert("Please fill out all the fields.");
+
+})
+
+$('#btnReset').click(() => {
+    
+    var email = $('#email').val();
+
+    if(email != "") {
+        firebase.auth().sendPasswordResetEmail(email)
+        .then(checkAuthState)
+        .then(function(){
+            window.alert("An email has been sent to your account.");
+        })
+        .catch(function(error){
+             // Handle Errors here.
+             var errorCode = error.code;
+             var errorMessage = error.message;
+             // ...
+             window.alert("Error: " + errorMessage);
+        });
+    }
+    else
+        window.alert("Please fill out the email address");
 
 })

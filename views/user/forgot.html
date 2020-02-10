@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Forgot password?</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+
+
+    <!-- MATERIAL DESIGN ICONIC FONT -->
+    <link rel="stylesheet"
+        href="../../design/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="../../design/css/style.css">
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-storage.js"></script>
+
+</head>
+
+<body>
+    <div class="wrapper" style="background-color:whitesmoke">
+        <div class="inner">
+            <div class="image-holder">
+                <img src="../../design/images/forgotPassword.gif">
+            </div>
+
+            <form action="">
+                <h3>Forgot password?</h3>
+                <div class="form-group">
+                    <p style="text-align: justify;">
+                        Please enter your registered email address below. 
+                        A link will be sent to recover your account.
+                    </p>
+                </div>
+                <div class="form-wrapper">
+                    <input id="email" type="email" placeholder="Email address" class="form-control">
+                    <i class="zmdi zmdi-email"></i>
+                </div>
+                
+                <div class="form-group container-login100-form-btn">
+                    <button id="btnReset" type="button">
+                        Reset Password
+                        <i class="zmdi zmdi-arrow-right"></i>
+                    </button> </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Firebase Scripts  -->
+    <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-analytics.js"></script>
+
+    <!-- Main Script -->
+    <script src="../../js/index.js"></script>
+
+</body>
+
+</html>
