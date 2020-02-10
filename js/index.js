@@ -50,3 +50,29 @@ $('#btnLogout').click(() => {
             console.log(error);
         });
 })
+
+$('#btnRegister').click(() => {
+    var email = $('#email').val();
+    var password = $('#password').val();
+    var conPassword = $('#confirmPassword').val();
+
+
+    if (email != "" && password != "" && conPassword != "") {
+        if (password == conPassword) {
+            firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then(checkAuthState)
+            .catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // ...
+              });
+        }
+        else
+            window.alert("Passwords do not match.");
+        
+    }
+    else
+        window.alert("Please fill out all the fields.");
+
+})
