@@ -1,6 +1,7 @@
 const { db } = require("../util/admin");
 const config = require("../util/config");
 
+// Getting All the Items
 exports.getAllItems = (request, response) => {
   db.collection("items")
     .orderBy("category")
@@ -24,6 +25,7 @@ exports.getAllItems = (request, response) => {
     });
 };
 
+// Adding new Item
 exports.addItem = (request, response) => {
   const noImage = "no-item-image.png";
 
@@ -35,7 +37,6 @@ exports.addItem = (request, response) => {
     imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/items/${noImage}?alt=media`
   };
 
-  console.log(newItem);
   db.collection("items")
     .add(newItem)
     .then(doc => {
@@ -44,5 +45,44 @@ exports.addItem = (request, response) => {
     .catch(error => {
       response.status(500).json({ message: `something went wrong` });
       console.log(error);
+    });
+};
+
+// Fetch one Item
+exports.getItem = (req, res) => {
+  db.doc(`/items/${req.params.itemId}`)
+    .get()
+    .then(doc => {
+      if (!doc.exists) {
+        return res.status(404).json({ error: "Item not found" });
+      }
+      itemData = doc.data();
+      itemData.itemId = doc.id;
+      return res.json(itemData);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({ error: err.code });
+    });
+};
+
+// Delete a Item
+exports.deleteItem = (req, res) => {
+  const document = db.doc(`/items/${req.params.itemId}`);
+  document
+    .get()
+    .then(doc => {
+      if (!doc.exists) {
+        return res.status(404).json({ error: "Item not found" });
+      } else {
+        return document.delete();
+      }
+    })
+    .then(() => {
+      res.json({ message: "Item deleted successfully" });
+    })
+    .catch(err => {
+      console.error(err);
+      return res.status(500).json({ error: err.code });
     });
 };

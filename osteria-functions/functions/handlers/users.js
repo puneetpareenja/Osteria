@@ -4,7 +4,7 @@ const config = require("../util/config");
 const firebase = require("firebase");
 firebase.initializeApp(config);
 
-const { validateSignUpData } = require("../util/validators");
+const { validateSignUpData, validateLoginData } = require("../util/validators");
 
 exports.signup = (request, response) => {
   const newUser = {
@@ -22,8 +22,6 @@ exports.signup = (request, response) => {
 
   let token;
   let userId;
-
-  console.log(newUser.email);
 
   db.doc(`/users/${newUser.email}`)
     .get()
