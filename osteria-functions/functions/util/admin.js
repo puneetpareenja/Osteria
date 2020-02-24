@@ -1,4 +1,4 @@
-var admin = require("firebase-admin");
+const admin = require("firebase-admin");
 
 // Fetch the service account key JSON file contents
 var serviceAccount = require("../../keys/serviceAccountKey.json");
