@@ -34,7 +34,7 @@ exports.addItem = (request, response) => {
     name: request.body.name,
     price: request.body.price,
     category: request.body.category,
-    imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/items/${noImage}?alt=media`
+    imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/items%2F${noImage}?alt=media`
   };
 
   db.collection("items")
