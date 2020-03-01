@@ -1,9 +1,14 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 
-class home extends Component {
+import Container from "@material-ui/core/Container";
+class Home extends Component {
   render() {
-    return <div>Home Page</div>;
+    return (
+      <Fragment>
+        <Container>Home</Container>
+      </Fragment>
+    );
   }
 }
 
-export default home;
+export default Home;
