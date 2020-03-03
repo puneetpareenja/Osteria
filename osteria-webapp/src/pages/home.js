@@ -34,7 +34,6 @@ class Home extends Component {
     );
     return (
       <Container>
-        <Navbar></Navbar>
         <Grid container spacing={3}>
           {itemsMarkup}
         </Grid>
@@ -44,6 +43,3 @@ class Home extends Component {
 }
 
 export default Home;
-
-// https://firebasestorage.googleapis.com/v0/b/osteria-xqgodr.appspot.com/o/items%2Fno-item-image.png?alt=media
-// https://firebasestorage.googleapis.com/v0/b/osteria-xqgodr.appspot.com/o/items/no-item-image.png?alt=media

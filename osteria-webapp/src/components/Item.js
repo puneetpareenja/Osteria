@@ -38,18 +38,6 @@ class Item extends Component {
           image={item.imageUrl}
           title={item.name}
         />
-        {/* <CardContent>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {item.description}
-          </Typography>
-          <Typography
-            variant="h6"
-            color="primary"
-            style={{ paddingTop: 10, textAlign: "right" }}
-          >
-            ${item.price}
-          </Typography>
-        </CardContent> */}
         <CardActions className={classes.actions}>
           <IconButton aria-label="mark as special">
             <FavoriteIcon />

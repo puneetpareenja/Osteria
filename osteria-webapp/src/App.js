@@ -11,16 +11,19 @@ import Index from "./pages/index";
 import Login from "./pages/login";
 import SignUp from "./pages/signup";
 import Home from "./pages/home";
+import ForgotPassword from "./pages/ForgotPassword";
 
 //TODO: Implement theme colors
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: "#9ad9f8"
+      main: "#4285F4",
+      contrastText: "white"
       // light, dark, contrastText properties available
     },
     secondary: {
-      main: "#ff2s23"
+      main: "#fff",
+      contrastText: "black"
     }
   }
 });
@@ -37,6 +40,11 @@ class App extends Component {
                 <Route exact path="/login" component={Login}></Route>
                 <Route exact path="/signup" component={SignUp}></Route>
                 <Route exact path="/home" component={Home}></Route>
+                <Route
+                  exact
+                  path="/forgotpassword"
+                  component={ForgotPassword}
+                ></Route>
               </Switch>
             </Router>
           </div>
