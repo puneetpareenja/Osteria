@@ -1,19 +1,19 @@
 import React, { Component } from "react";
+import axios from "axios";
+import PropTypes from "prop-types";
 
 // Material UI
-import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { withStyles, useTheme } from "@material-ui/core/styles";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { green } from "@material-ui/core/colors";
 
 //Personal Component
 import login from "../images/login.gif";
@@ -43,11 +43,63 @@ const styles = {
   submit: {
     marginTop: 10,
     marginBottom: 10
+  },
+  buttonProgress: {
+    color: green[500],
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    marginTop: -12,
+    marginLeft: -12
   }
 };
 class Login extends Component {
+  constructor() {
+    super();
+    this.state = {
+      email: "",
+      password: "",
+      loading: false,
+      errors: {}
+    };
+  }
+
+  handleSubmit = event => {
+    event.preventDefault();
+    this.setState({
+      loading: true
+    });
+    const userData = {
+      email: this.state.email,
+      password: this.state.password
+    };
+    axios
+      .post("/login", userData)
+      .then(res => {
+        console.log(res);
+        this.setState({
+          loading: false
+        });
+        this.props.history.push("/");
+      })
+      .catch(err => {
+        console.log(err);
+        this.setState({
+          errors: err.response.data,
+          loading: false
+        });
+      });
+  };
+
+  handleChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  };
   render() {
     const { classes } = this.props;
+    const { errors, loading } = this.state;
+
     return (
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
@@ -58,7 +110,16 @@ class Login extends Component {
             <Typography component="h1" variant="h5">
               Sign In
             </Typography>
-            <form noValidate className={classes.form}>
+            <form
+              noValidate
+              className={classes.form}
+              onSubmit={this.handleSubmit}
+            >
+              {errors.general && (
+                <Typography variant="body2" align="center" color="error">
+                  {errors.general}
+                </Typography>
+              )}
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -67,8 +128,12 @@ class Login extends Component {
                 id="email"
                 label="Email Address"
                 name="email"
-                autoComplete="email"
+                // autoComplete="email"
                 autoFocus
+                value={this.state.email}
+                onChange={this.handleChange}
+                helperText={errors.email}
+                error={errors.email ? true : false}
               />
               <TextField
                 variant="outlined"
@@ -79,21 +144,28 @@ class Login extends Component {
                 label="Password"
                 type="password"
                 id="password"
-                autoComplete="current-password"
+                // autoComplete="current-password"
+                value={this.state.password}
+                onChange={this.handleChange}
+                helperText={errors.password}
+                error={errors.password ? true : false}
               />
-              {/* <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              /> */}
               <Button
                 type="submit"
                 fullWidth
                 variant="outlined"
                 color="primary"
                 className={classes.submit}
+                disabled={loading}
               >
                 Sign In
               </Button>
+              {loading && (
+                <CircularProgress
+                  size={24}
+                  className={classes.buttonProgress}
+                />
+              )}
               <Grid container>
                 <Grid item xs>
                   <Link href="/forgotpassword">
@@ -120,5 +192,9 @@ class Login extends Component {
     );
   }
 }
+
+Login.propTypes = {
+  classes: PropTypes.object.isRequired
+};
 
 export default withStyles(styles)(Login);
