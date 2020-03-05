@@ -88,7 +88,7 @@ exports.login = (request, response) => {
       console.error(err);
       if (
         err.code === "auth/wrong-password" ||
-        err.code === "auth/auth/user-not-found"
+        err.code === "auth/user-not-found"
       ) {
         return response.status(400).json({ general: "Invalid credentials" });
       } else {
