@@ -35,7 +35,9 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    margin: 40
+    marginTop: 80,
+    marginRight: 100,
+    marginLeft: 100
   },
   form: {
     marginTop: 20
@@ -159,13 +161,14 @@ class Login extends Component {
                 disabled={loading}
               >
                 Sign In
+                {loading && (
+                  <CircularProgress
+                    size={24}
+                    className={classes.buttonProgress}
+                  />
+                )}
               </Button>
-              {loading && (
-                <CircularProgress
-                  size={24}
-                  className={classes.buttonProgress}
-                />
-              )}
+
               <Grid container>
                 <Grid item xs>
                   <Link href="/forgotpassword">
@@ -182,9 +185,7 @@ class Login extends Component {
                   </Typography>
                 </Link>
               </Box>
-              <Box mt={30}>
-                <Copyright />
-              </Box>
+              <Copyright />
             </form>
           </div>
         </Grid>
