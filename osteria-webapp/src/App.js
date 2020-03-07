@@ -1,10 +1,19 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
+import jwtDecode from "jwt-decode";
+import themeFile from "./util/theme";
+
+//Redux
+import { Provider } from "react-redux";
+import store from "./redux/store";
+
+// Material UI
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 
-//Components
+// Components
+import AuthRoute from "./util/AuthRoute";
 
 // Pages
 import Index from "./pages/Index";
@@ -14,30 +23,41 @@ import Home from "./pages/Home";
 import ForgotPassword from "./pages/ForgotPassword";
 
 //TODO: Implement theme colors
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: "#4285F4",
-      contrastText: "white"
-      // light, dark, contrastText properties available
-    },
-    secondary: {
-      main: "#fff",
-      contrastText: "black"
-    }
+const theme = createMuiTheme(themeFile);
+
+const token = localStorage.FBIdToken;
+
+let authenticated = false;
+if (token) {
+  const decodedToken = jwtDecode(token);
+  if (decodedToken.exp * 1000 < Date.now()) {
+    window.location.href = "/login";
+    authenticated = false;
+  } else {
+    authenticated = true;
   }
-});
+}
 
 class App extends Component {
   render() {
     return (
       <MuiThemeProvider theme={theme}>
-        <div className="App">
+        <Provider store={store}>
           <Router>
             <Switch>
               <Route exact path="/" component={Index}></Route>
-              <Route exact path="/login" component={Login}></Route>
-              <Route exact path="/signup" component={SignUp}></Route>
+              <AuthRoute
+                exact
+                path="/login"
+                component={Login}
+                authenticated={authenticated}
+              />
+              <AuthRoute
+                exact
+                path="/signup"
+                component={SignUp}
+                authenticated={authenticated}
+              />
               <Route exact path="/home" component={Home}></Route>
               <Route
                 exact
@@ -46,7 +66,7 @@ class App extends Component {
               ></Route>
             </Switch>
           </Router>
-        </div>
+        </Provider>
       </MuiThemeProvider>
     );
   }
