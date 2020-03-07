@@ -24,7 +24,8 @@ exports.fbAuth = (request, response, next) => {
         .get();
     })
     .then(data => {
-      request.user.handle = data.docs[0].data().handle;
+      request.user.email = data.docs[0].data().email;
+      console.log(request.user.email, request.user.uid);
       return next();
     })
     .catch(err => {
