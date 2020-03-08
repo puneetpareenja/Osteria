@@ -97,6 +97,23 @@ exports.login = (request, response) => {
     });
 };
 
+exports.getAuthenticatedUser = (request, response) => {
+  console.log("inside");
+  let userData = {};
+  db.doc(`users/${request.user.email}`)
+    .get()
+    .then(doc => {
+      if (doc.exists) {
+        userData.credentials = doc.data();
+      }
+      return response.json(userData);
+    })
+    .catch(err => {
+      console.error(err);
+      return response.status(500).json({ error: err.code });
+    });
+};
+
 exports.uploadUserImage = (request, response) => {
   const BusBoy = require("busboy");
   const path = require("path");

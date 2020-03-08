@@ -1,7 +1,13 @@
 const functions = require("firebase-functions");
 const app = require("express")();
 
-const { signup, login, uploadUserImage } = require("./handlers/users");
+const {
+  signup,
+  login,
+  uploadUserImage,
+  getAuthenticatedUser
+} = require("./handlers/users");
+
 const {
   getAllItems,
   addItem,
@@ -9,12 +15,14 @@ const {
   getItem,
   uploadItemImage
 } = require("./handlers/items");
+
 const { fbAuth } = require("./util/fbAuth");
 
 // User Routes
 app.post("/signup", signup);
 app.post("/login", login);
 app.post("/user/image", fbAuth, uploadUserImage);
+app.get("/user", fbAuth, getAuthenticatedUser);
 
 // Item Routes
 app.get("/items", getAllItems);
