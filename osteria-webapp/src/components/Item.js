@@ -20,7 +20,8 @@ const styles = {
   },
   media: {
     height: 0,
-    paddingTop: "56.25%" // 16:9
+    paddingTop: "56.25%",
+    backgroundColor: "#ddd" // 16:9
   },
   actions: {
     marginLeft: "auto"

@@ -87,7 +87,7 @@ class SignUp extends Component {
         this.setState({
           loading: false
         });
-        this.props.history.push("/");
+        this.props.history.push("/home");
       })
       .catch(err => {
         console.log(err);
@@ -128,7 +128,6 @@ class SignUp extends Component {
                 </Typography>
               )}
               <TextField
-                variant="outlined"
                 margin="normal"
                 required
                 fullWidth
@@ -143,7 +142,6 @@ class SignUp extends Component {
                 error={errors.name ? true : false}
               />
               <TextField
-                variant="outlined"
                 margin="normal"
                 required
                 fullWidth
@@ -158,7 +156,6 @@ class SignUp extends Component {
                 error={errors.email ? true : false}
               />
               <TextField
-                variant="outlined"
                 margin="normal"
                 required
                 fullWidth
@@ -172,7 +169,6 @@ class SignUp extends Component {
                 error={errors.password ? true : false}
               />
               <TextField
-                variant="outlined"
                 margin="normal"
                 required
                 fullWidth
@@ -188,7 +184,7 @@ class SignUp extends Component {
               <Button
                 type="submit"
                 fullWidth
-                variant="outlined"
+                variant="contained"
                 color="primary"
                 className={classes.submit}
                 disabled={loading}

@@ -4,10 +4,10 @@ const admin = require("firebase-admin");
 admin.initializeApp();
 
 // For Firebase Serve
-// // Fetch the service account key JSON file contents
+// Fetch the service account key JSON file contents
 // var serviceAccount = require("../../keys/serviceAccountKey.json");
 
-// // Initialize the app with a service account, granting admin privileges
+// Initialize the app with a service account, granting admin privileges
 // admin.initializeApp({
 //   credential: admin.credential.cert(serviceAccount),
 //   //   databaseURL: "https://osteria-xqgodr.firebaseio.com",

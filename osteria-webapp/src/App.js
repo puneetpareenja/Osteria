@@ -25,14 +25,13 @@ import ForgotPassword from "./pages/ForgotPassword";
 //TODO: Implement theme colors
 const theme = createMuiTheme(themeFile);
 
+let authenticated;
 const token = localStorage.FBIdToken;
-
-let authenticated = false;
 if (token) {
   const decodedToken = jwtDecode(token);
   if (decodedToken.exp * 1000 < Date.now()) {
-    window.location.href = "/login";
     authenticated = false;
+    window.location.href = "/login";
   } else {
     authenticated = true;
   }
