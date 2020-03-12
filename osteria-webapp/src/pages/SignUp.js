@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 import PropTypes from "prop-types";
 
 // Material UI
@@ -14,19 +13,31 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { green } from "@material-ui/core/colors";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import AccountCircleOutlined from "@material-ui/icons/AccountCircleOutlined";
+import LockOutlined from "@material-ui/icons/LockOutlined";
+import EmailOutlined from "@material-ui/icons/EmailOutlined";
 
 //Personal Component
-import signup from "../images/signup.gif";
+// import signup from "../images/signup.gif";
+import signup2 from "../images/signup2.svg";
 import Logo from "../components/Logo";
 import Copyright from "../components/Copyright";
 
+// Redux
+import { connect } from "react-redux";
+import { signUpUser } from "../redux/actions/userActions";
+import { Container } from "@material-ui/core";
+
 const styles = {
   root: {
-    height: "100vh",
-    margin: "auto"
+    height: "90vh",
+    margin: "auto",
+    marginTop: "5vh"
   },
   image: {
-    background: `url(${signup})`,
+    // background: `url(${signup})`,
+    background: `url(${signup2})`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     backgroundPosition: "center"
@@ -35,7 +46,7 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    marginTop: 60,
+    marginTop: 40,
     marginRight: 100,
     marginLeft: 100
   },
@@ -63,9 +74,14 @@ class SignUp extends Component {
       email: "",
       password: "",
       confirmPassword: "",
-      loading: false,
       errors: {}
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.UI.errors) {
+      this.setState({ errors: nextProps.UI.errors });
+    }
   }
 
   handleSubmit = event => {
@@ -79,23 +95,7 @@ class SignUp extends Component {
       password: this.state.password,
       confirmPassword: this.state.confirmPassword
     };
-    axios
-      .post("/signup", newUserData)
-      .then(res => {
-        console.log(res);
-        localStorage.setItem("FBIdToken", `Bearer ${res.data.token}`);
-        this.setState({
-          loading: false
-        });
-        this.props.history.push("/home");
-      })
-      .catch(err => {
-        console.log(err);
-        this.setState({
-          errors: err.response.data,
-          loading: false
-        });
-      });
+    this.props.signUpUser(newUserData, this.props.history);
   };
 
   handleChange = event => {
@@ -104,118 +104,169 @@ class SignUp extends Component {
     });
   };
   render() {
-    const { classes } = this.props;
-    const { errors, loading } = this.state;
+    const {
+      classes,
+      UI: { loading }
+    } = this.props;
+    const { errors } = this.state;
 
     return (
-      <Grid container component="main" className={classes.root}>
-        <CssBaseline />
-        <Grid item xs={false} sm={4} md={7} className={classes.image}></Grid>
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-          <div className={classes.paper}>
-            <Logo size="70"></Logo>
-            <Typography component="h1" variant="h5">
-              Sign Up
-            </Typography>
-            <form
-              noValidate
-              className={classes.form}
-              onSubmit={this.handleSubmit}
-            >
-              {errors.general && (
-                <Typography variant="body2" align="center" color="error">
-                  {errors.general}
-                </Typography>
-              )}
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="name"
-                label="Name"
-                name="name"
-                autoComplete="name"
-                autoFocus
-                value={this.state.name}
-                onChange={this.handleChange}
-                helperText={errors.name}
-                error={errors.name ? true : false}
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-                value={this.state.email}
-                onChange={this.handleChange}
-                helperText={errors.email}
-                error={errors.email ? true : false}
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                value={this.state.password}
-                onChange={this.handleChange}
-                helperText={errors.password}
-                error={errors.password ? true : false}
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="confirmPassword"
-                label="Confirm Password"
-                type="confirmPassword"
-                id="password"
-                value={this.state.confirmPassword}
-                onChange={this.handleChange}
-                helperText={errors.confirmPassword}
-                error={errors.confirmPassword ? true : false}
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-                disabled={loading}
-              >
+      <Container>
+        <Grid container component="main" className={classes.root}>
+          <CssBaseline />
+          <Grid item xs={false} sm={4} md={7} className={classes.image}></Grid>
+          <Grid
+            item
+            xs={12}
+            sm={8}
+            md={5}
+            component={Paper}
+            elevation={6}
+            square
+          >
+            <div className={classes.paper}>
+              <Logo size="70"></Logo>
+              <Typography component="h1" variant="h5">
                 Sign Up
-                {loading && (
-                  <CircularProgress
-                    size={24}
-                    className={classes.buttonProgress}
-                  />
-                )}
-              </Button>
-
-              <Box mt={3} className={classes.footer}>
-                <Link href="/login">
-                  <Typography align="center">
-                    Already have an account? Sign In
+              </Typography>
+              <form
+                noValidate
+                className={classes.form}
+                onSubmit={this.handleSubmit}
+              >
+                {errors.general && (
+                  <Typography variant="body2" align="center" color="error">
+                    {errors.general}
                   </Typography>
-                </Link>
-              </Box>
-              <Copyright />
-            </form>
-          </div>
+                )}
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="name"
+                  label="Name"
+                  name="name"
+                  autoComplete="name"
+                  autoFocus
+                  value={this.state.name}
+                  onChange={this.handleChange}
+                  helperText={errors.name}
+                  error={errors.name ? true : false}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <AccountCircleOutlined />
+                      </InputAdornment>
+                    )
+                  }}
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  autoFocus
+                  value={this.state.email}
+                  onChange={this.handleChange}
+                  helperText={errors.email}
+                  error={errors.email ? true : false}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <EmailOutlined />
+                      </InputAdornment>
+                    )
+                  }}
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  value={this.state.password}
+                  onChange={this.handleChange}
+                  helperText={errors.password}
+                  error={errors.password ? true : false}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <LockOutlined />
+                      </InputAdornment>
+                    )
+                  }}
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="confirmPassword"
+                  label="Confirm Password"
+                  type="confirmPassword"
+                  id="password"
+                  value={this.state.confirmPassword}
+                  onChange={this.handleChange}
+                  helperText={errors.confirmPassword}
+                  error={errors.confirmPassword ? true : false}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <LockOutlined />
+                      </InputAdornment>
+                    )
+                  }}
+                />
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                  disabled={loading}
+                >
+                  Sign Up
+                  {loading && (
+                    <CircularProgress
+                      size={24}
+                      className={classes.buttonProgress}
+                    />
+                  )}
+                </Button>
+
+                <Box mt={2} className={classes.footer}>
+                  <Link href="/login">
+                    <Typography align="center">
+                      Already have an account? Sign In
+                    </Typography>
+                  </Link>
+                </Box>
+                <Copyright />
+              </form>
+            </div>
+          </Grid>
         </Grid>
-      </Grid>
+      </Container>
     );
   }
 }
 
 SignUp.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  UI: PropTypes.object.isRequired,
+  signUpUser: PropTypes.func.isRequired
 };
 
-export default withStyles(styles)(SignUp);
+const mapStateToProps = state => ({
+  user: state.user,
+  UI: state.UI
+});
+
+export default connect(mapStateToProps, { signUpUser })(
+  withStyles(styles)(SignUp)
+);

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 import PropTypes from "prop-types";
 
 // Material UI
@@ -11,26 +10,33 @@ import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { withStyles, useTheme } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { green } from "@material-ui/core/colors";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import EmailOutlined from "@material-ui/icons/EmailOutlined";
+import LockOutlined from "@material-ui/icons/LockOutlined";
 
 //Personal Component
-import login from "../images/login.gif";
+// import login from "../images/login.gif";
+import login2 from "../images/login2.svg";
 import Logo from "../components/Logo";
 import Copyright from "../components/Copyright";
 
 // Redux
 import { connect } from "react-redux";
 import { loginUser } from "../redux/actions/userActions";
+import { Container } from "@material-ui/core";
 
 const styles = {
   root: {
-    height: "100vh",
-    margin: "auto"
+    height: "90vh",
+    margin: "auto",
+    marginTop: "5vh"
   },
   image: {
-    background: `url(${login})`,
+    // background: `url(${login})`,
+    background: `url(${login2})`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     backgroundPosition: "center"
@@ -69,6 +75,12 @@ class Login extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.UI.errors) {
+      this.setState({ errors: nextProps.UI.errors });
+    }
+  }
+
   handleSubmit = event => {
     event.preventDefault();
     const userData = {
@@ -91,91 +103,115 @@ class Login extends Component {
     const { errors } = this.state;
 
     return (
-      <Grid container component="main" className={classes.root}>
-        <CssBaseline />
-        <Grid item xs={false} sm={4} md={7} className={classes.image}></Grid>
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-          <div className={classes.paper}>
-            <Logo size="70"></Logo>
-            <Typography component="h1" variant="h5">
-              Sign In
-            </Typography>
-            <form
-              noValidate
-              className={classes.form}
-              onSubmit={this.handleSubmit}
-            >
-              {errors.general && (
-                <Typography variant="body2" align="center" color="error">
-                  {errors.general}
-                </Typography>
-              )}
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                // autoComplete="email"
-                autoFocus
-                value={this.state.email}
-                onChange={this.handleChange}
-                helperText={errors.email}
-                error={errors.email ? true : false}
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                // autoComplete="current-password"
-                value={this.state.password}
-                onChange={this.handleChange}
-                helperText={errors.password}
-                error={errors.password ? true : false}
-              />
-              <Button
-                type="submit"
-                variant="contained"
-                fullWidth
-                color="primary"
-                className={classes.submit}
-                disabled={loading}
-              >
+      <Container>
+        <Grid container component="main" className={classes.root}>
+          <CssBaseline />
+          <Grid item xs={false} sm={4} md={7} className={classes.image}></Grid>
+          <Grid
+            item
+            xs={12}
+            sm={8}
+            md={5}
+            component={Paper}
+            elevation={6}
+            square
+          >
+            <div className={classes.paper}>
+              <Logo size="70"></Logo>
+              <Typography component="h1" variant="h5">
                 Sign In
-                {loading && (
-                  <CircularProgress
-                    size={24}
-                    className={classes.buttonProgress}
-                  />
+              </Typography>
+              <form
+                noValidate
+                className={classes.form}
+                onSubmit={this.handleSubmit}
+              >
+                {errors.general && (
+                  <Typography variant="body2" align="center" color="error">
+                    {errors.general}
+                  </Typography>
                 )}
-              </Button>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  // autoComplete="email"
+                  autoFocus
+                  value={this.state.email}
+                  onChange={this.handleChange}
+                  helperText={errors.email}
+                  error={errors.email ? true : false}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <EmailOutlined />
+                      </InputAdornment>
+                    )
+                  }}
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  // autoComplete="current-password"
+                  value={this.state.password}
+                  onChange={this.handleChange}
+                  helperText={errors.password}
+                  error={errors.password ? true : false}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <LockOutlined />
+                      </InputAdornment>
+                    )
+                  }}
+                />
+                <Button
+                  type="submit"
+                  variant="contained"
+                  fullWidth
+                  color="primary"
+                  className={classes.submit}
+                  disabled={loading}
+                >
+                  Sign In
+                  {loading && (
+                    <CircularProgress
+                      size={24}
+                      className={classes.buttonProgress}
+                    />
+                  )}
+                </Button>
 
-              <Grid container>
-                <Grid item xs>
-                  <Link href="/forgotpassword">
-                    <Typography align="right" variant="body2">
-                      Forgot Password?
+                <Grid container>
+                  <Grid item xs>
+                    <Link href="/forgotpassword">
+                      <Typography align="right" variant="body2">
+                        Forgot Password?
+                      </Typography>
+                    </Link>
+                  </Grid>
+                </Grid>
+                <Box mt={5}>
+                  <Link href="/signup">
+                    <Typography align="center">
+                      Don't have an account? Sign Up
                     </Typography>
                   </Link>
-                </Grid>
-              </Grid>
-              <Box mt={5}>
-                <Link href="/signup">
-                  <Typography align="center">
-                    Don't have an account? Sign Up
-                  </Typography>
-                </Link>
-              </Box>
-              <Copyright />
-            </form>
-          </div>
+                </Box>
+                <Copyright />
+              </form>
+            </div>
+          </Grid>
         </Grid>
-      </Grid>
+      </Container>
     );
   }
 }
