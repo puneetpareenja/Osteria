@@ -12,19 +12,32 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CardHeader from "@material-ui/core/CardHeader";
+import Chip from "@material-ui/core/Chip";
+import Button from "@material-ui/core/Button";
 
 const styles = {
   root: {
-    maxWidth: 300,
-    marginBottom: 20
+    width: 280
   },
   media: {
-    height: 0,
-    paddingTop: "56.25%",
-    backgroundColor: "#ddd" // 16:9
+    height: 200
   },
-  actions: {
-    marginLeft: "auto"
+  title: {
+    fontSize: "1.3rem",
+    fontWeight: "100"
+  },
+  price: {
+    fontSize: "1rem",
+    fontWeight: "800"
+  },
+  content: {
+    padding: 20,
+    height: 80
+  },
+  description: {
+    display: "block",
+    height: 60,
+    marginTop: 10
   }
 };
 
@@ -33,12 +46,21 @@ class Item extends Component {
     const { classes, item } = this.props;
     return (
       <Card className={classes.root}>
-        <CardHeader title={item.name} />
         <CardMedia
           className={classes.media}
           image={item.imageUrl}
           title={item.name}
         />
+        <CardContent className={classes.content}>
+          <Typography className={classes.title}>{item.name}</Typography>
+          <Typography className={classes.price} color="primary" variant="">
+            $ {item.price}
+          </Typography>
+
+          <Typography variant="caption" className={classes.description}>
+            {item.description}
+          </Typography>
+        </CardContent>
         <CardActions className={classes.actions}>
           <IconButton aria-label="mark as special">
             <FavoriteIcon />
@@ -46,16 +68,9 @@ class Item extends Component {
           <IconButton aria-label="edit">
             <EditIcon />
           </IconButton>
-          <IconButton aria-label="delete">
+          <IconButton aria-label="edit">
             <DeleteIcon />
           </IconButton>
-          <Typography
-            color="primary"
-            variant="h6"
-            style={{ marginLeft: "auto", marginRight: 20 }}
-          >
-            $ {item.price}
-          </Typography>
         </CardActions>
       </Card>
     );

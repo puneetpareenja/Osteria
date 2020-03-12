@@ -8,14 +8,22 @@ import Logo from "../components/Logo";
 
 const styles = {
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    marginBottom: 64
   },
   title: {
-    flexGrow: 1,
     marginLeft: 10
+  },
+  space: {
+    flexGrow: 1,
+    margin: 10
   },
   mainGradient: {
     background: "linear-gradient(to right, #00F260, #0575E6)"
+  },
+  button: {
+    width: 100,
+    margin: 10
   }
 };
 
@@ -25,24 +33,23 @@ class Navbar extends Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="fixed" className="classes.mainGradient">
+        <AppBar position="fixed" color="secondary">
           <Toolbar>
             <Logo size="35" />
             <Typography variant="h5" className={classes.title}>
               Osteria
             </Typography>
-
-            <Button color="inherit" href="/">
-              Index
-            </Button>
-            <Button color="inherit" href="/login">
-              Login
-            </Button>
-            <Button color="inherit" href="/home">
-              Home
-            </Button>
-            <Button color="inherit" href="/signup">
+            <Typography className={classes.space}></Typography>
+            <Button color="inherit" href="/signup" className={classes.button}>
               SignUp
+            </Button>
+            <Button
+              color="primary"
+              variant="contained"
+              href="/login"
+              className={classes.button}
+            >
+              Login
             </Button>
           </Toolbar>
         </AppBar>

@@ -2,12 +2,14 @@ export default {
   palette: {
     primary: {
       main: "#FB8C00",
-      contrastText: "white"
+      contrastText: "#FFFFFF",
+      light: "#ffa726",
+      dark: "#ef6c00"
       // light, dark, contrastText properties available
     },
     secondary: {
-      main: "#fff",
-      contrastText: "black"
+      main: "#FFFFFF",
+      contrastText: "#000000"
     }
   }
 };
