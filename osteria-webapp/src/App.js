@@ -23,6 +23,7 @@ import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
 import ForgotPassword from "./pages/ForgotPassword";
 import axios from "axios";
+import Navbar from "./components/Navbar";
 
 //TODO: Implement theme colors
 const theme = createMuiTheme(themeFile);
@@ -45,6 +46,7 @@ class App extends Component {
     return (
       <MuiThemeProvider theme={theme}>
         <Provider store={store}>
+          <Navbar />
           <Router>
             <Switch>
               <Route exact path="/" component={Index}></Route>

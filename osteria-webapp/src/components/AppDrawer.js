@@ -14,7 +14,9 @@ import FastfoodIcon from "@material-ui/icons/Fastfood";
 import StarIcon from "@material-ui/icons/Star";
 import ReceiptIcon from "@material-ui/icons/Receipt";
 import PersonIcon from "@material-ui/icons/Person";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { Avatar } from "@material-ui/core";
+import Link from "@material-ui/core/Link";
 
 const drawerWidth = 240;
 const styles = theme => ({
@@ -63,7 +65,6 @@ class AppDrawer extends Component {
             paper: classes.drawerPaper
           }}
         >
-          <div className={classes.toolbar} />
           <Avatar className={classes.avatar} />
           <Typography className={classes.username}>Puneet Pareenja</Typography>
           <Typography className={classes.email}>
@@ -83,7 +84,7 @@ class AppDrawer extends Component {
               </ListItemIcon>
               <ListItemText>Specials</ListItemText>
             </ListItem>
-            <ListItem button>
+            <ListItem>
               <ListItemIcon>
                 <ReceiptIcon />
               </ListItemIcon>
@@ -94,6 +95,13 @@ class AppDrawer extends Component {
                 <PersonIcon />
               </ListItemIcon>
               <ListItemText>Profile</ListItemText>
+            </ListItem>
+            <Divider />
+            <ListItem button>
+              <ListItemIcon>
+                <ExitToAppIcon />
+              </ListItemIcon>
+              <ListItemText>Logout</ListItemText>
             </ListItem>
           </List>
         </Drawer>

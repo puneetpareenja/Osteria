@@ -66,13 +66,9 @@ class Home extends Component {
     );
     return (
       <div>
-        <Navbar />
-        <AppDrawer />
+        {/* <AppDrawer /> */}
 
-        <main
-          className={classes.content}
-          style={{ marginLeft: 240, padding: 20 }}
-        >
+        <main className={classes.content} style={{ padding: 20 }}>
           <Grid container>{itemsMarkup}</Grid>
         </main>
       </div>

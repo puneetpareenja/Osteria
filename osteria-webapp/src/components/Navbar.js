@@ -6,6 +6,8 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Logo from "../components/Logo";
 import Link from "@material-ui/core/Link";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 const styles = theme => ({
   root: {
@@ -30,7 +32,7 @@ const styles = theme => ({
 
 class Navbar extends Component {
   render() {
-    const { classes } = this.props;
+    const { classes, authenticated } = this.props;
 
     return (
       <div className={classes.root}>
@@ -41,17 +43,28 @@ class Navbar extends Component {
               Osteria
             </Typography>
             <Typography className={classes.space}></Typography>
-            <Button color="inherit" href="/signup" className={classes.button}>
-              SignUp
-            </Button>
-            <Button
-              color="primary"
-              variant="contained"
-              href="/login"
-              className={classes.button}
-            >
-              Login
-            </Button>
+
+            {authenticated === true ? (
+              <div>authenticated</div>
+            ) : (
+              <div>
+                <Button
+                  color="inherit"
+                  href="/signup"
+                  className={classes.button}
+                >
+                  SignUp
+                </Button>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  href="/login"
+                  className={classes.button}
+                >
+                  Login
+                </Button>
+              </div>
+            )}
           </Toolbar>
         </AppBar>
       </div>
@@ -59,4 +72,12 @@ class Navbar extends Component {
   }
 }
 
-export default withStyles(styles)(Navbar);
+const mapStateToProps = state => ({
+  authenticated: state.user.authenticated
+});
+
+Navbar.propTypes = {
+  user: PropTypes.object.isRequired
+};
+
+export default connect(mapStateToProps)(withStyles(styles)(Navbar));
