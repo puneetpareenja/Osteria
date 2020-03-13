@@ -10,7 +10,7 @@ import Link from "@material-ui/core/Link";
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    marginBottom: 100
+    marginBottom: 64
   },
   title: {
     marginLeft: 10

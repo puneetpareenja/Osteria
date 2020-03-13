@@ -53,7 +53,7 @@ class Item extends Component {
         />
         <CardContent className={classes.content}>
           <Typography className={classes.title}>{item.name}</Typography>
-          <Typography className={classes.price} color="primary" variant="">
+          <Typography className={classes.price} color="primary">
             $ {item.price}
           </Typography>
 

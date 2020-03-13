@@ -14,10 +14,14 @@ import ItemSekeleton from "../components/ItemSkeleton";
 import Typography from "@material-ui/core/Typography";
 
 import Item from "../components/Item";
+import AppDrawer from "../components/AppDrawer";
 
 const styles = theme => ({
   root: {
     display: "flex"
+  },
+  content: {
+    background: "#FF0000"
   }
 });
 
@@ -29,7 +33,6 @@ class Home extends Component {
     axios
       .get("/items")
       .then(res => {
-        console.log(res.data);
         this.setState({
           items: res.data
         });
@@ -41,8 +44,8 @@ class Home extends Component {
     const classes = this.props;
     let itemsMarkup = this.state.items ? (
       this.state.items.map(item => (
-        <Grid item xs>
-          <Item key={item.id} item={item}></Item>
+        <Grid key={item.id} item xs>
+          <Item item={item} />
         </Grid>
       ))
     ) : (
@@ -64,7 +67,14 @@ class Home extends Component {
     return (
       <div>
         <Navbar />
-        <Grid container>{itemsMarkup}</Grid>
+        <AppDrawer />
+
+        <main
+          className={classes.content}
+          style={{ marginLeft: 240, padding: 20 }}
+        >
+          <Grid container>{itemsMarkup}</Grid>
+        </main>
       </div>
     );
   }
