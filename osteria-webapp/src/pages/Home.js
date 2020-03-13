@@ -1,11 +1,26 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import axios from "axios";
 
+// Material UI
 import Grid from "@material-ui/core/Grid";
+import Container from "@material-ui/core/Container";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
+import Box from "@material-ui/core/Box";
+import CssBaseline from "@material-ui/core/CssBaseline";
+
+// Components
 import Navbar from "../components/Navbar";
-import { Container } from "@material-ui/core";
+import ItemSekeleton from "../components/ItemSkeleton";
+import Typography from "@material-ui/core/Typography";
 
 import Item from "../components/Item";
+
+const styles = theme => ({
+  root: {
+    display: "flex"
+  }
+});
+
 class Home extends Component {
   state = {
     items: null
@@ -23,6 +38,7 @@ class Home extends Component {
   }
 
   render() {
+    const classes = this.props;
     let itemsMarkup = this.state.items ? (
       this.state.items.map(item => (
         <Grid item xs>
@@ -30,16 +46,28 @@ class Home extends Component {
         </Grid>
       ))
     ) : (
-      <p>Loading</p>
+      <Fragment>
+        <Grid item xs>
+          <ItemSekeleton />
+        </Grid>
+        <Grid item xs>
+          <ItemSekeleton />
+        </Grid>
+        <Grid item xs>
+          <ItemSekeleton />
+        </Grid>
+        <Grid item xs>
+          <ItemSekeleton />
+        </Grid>
+      </Fragment>
     );
     return (
-      <Container>
-        <Grid container spacing={3}>
-          {itemsMarkup}
-        </Grid>
-      </Container>
+      <div>
+        <Navbar />
+        <Grid container>{itemsMarkup}</Grid>
+      </div>
     );
   }
 }
 
-export default Home;
+export default withStyles(styles)(Home);

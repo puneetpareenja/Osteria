@@ -11,11 +11,11 @@ import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
-import CardHeader from "@material-ui/core/CardHeader";
-import Chip from "@material-ui/core/Chip";
-import Button from "@material-ui/core/Button";
+// import CardHeader from "@material-ui/core/CardHeader";
+// import Chip from "@material-ui/core/Chip";
+// import Button from "@material-ui/core/Button";
 
-const styles = {
+const styles = theme => ({
   root: {
     width: 280
   },
@@ -39,7 +39,7 @@ const styles = {
     height: 60,
     marginTop: 10
   }
-};
+});
 
 class Item extends Component {
   render() {

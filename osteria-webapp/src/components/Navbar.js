@@ -1,15 +1,16 @@
 import React, { Component } from "react";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Logo from "../components/Logo";
+import Link from "@material-ui/core/Link";
 
-const styles = {
+const styles = theme => ({
   root: {
     flexGrow: 1,
-    marginBottom: 64
+    marginBottom: 100
   },
   title: {
     marginLeft: 10
@@ -18,14 +19,14 @@ const styles = {
     flexGrow: 1,
     margin: 10
   },
-  mainGradient: {
-    background: "linear-gradient(to right, #00F260, #0575E6)"
-  },
   button: {
     width: 100,
     margin: 10
+  },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1
   }
-};
+});
 
 class Navbar extends Component {
   render() {
@@ -33,7 +34,7 @@ class Navbar extends Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="fixed" color="secondary">
+        <AppBar position="fixed" color="secondary" className={classes.appBar}>
           <Toolbar>
             <Logo size="35" />
             <Typography variant="h5" className={classes.title}>
