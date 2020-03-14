@@ -125,16 +125,18 @@ exports.uploadUserImage = (request, response) => {
   let imageFileName;
   let imageToBeUploaded = {};
 
+  const userId = request.user.uid;
+
   busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
     if (mimetype !== "image/jpeg" && mimetype !== "image/png") {
       return response.status(400).json({ error: "Wrong File Type Submitted" });
     }
     const imageExtension = filename.split(".")[filename.split(".").length - 1];
-    imageFileName = `${request.user.uid}.${imageExtension}`;
-    console.log(imageFileName);
-    filepath = path.join(imageFileName);
+    imageFileName = `${userId}.${imageExtension}`;
+    console.log("imageFileName", imageFileName);
+    const filepath = path.join(os.tmpdir(), imageFileName);
     imageToBeUploaded = { filepath, mimetype };
-    file.pipe(fs.createWriteStream(path.join(os.tmpdir(), filepath)));
+    file.pipe(fs.createWriteStream(filepath));
   });
 
   busboy.on("finish", () => {
@@ -142,7 +144,7 @@ exports.uploadUserImage = (request, response) => {
       .storage()
       .bucket()
       .upload(imageToBeUploaded.filepath, {
-        destination: `users/${imageToBeUploaded.filepath}`,
+        destination: `users/${imageFileName}`,
         resumable: false,
         metadata: {
           metadata: {
