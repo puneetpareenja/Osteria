@@ -15,6 +15,8 @@ import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 
 // Components
 import AuthRoute from "./util/AuthRoute";
+import CheckAuthRoute from "./util/CheckAuthRoute";
+import Navbar from "./components/Navbar";
 
 // Pages
 import Index from "./pages/Index";
@@ -23,7 +25,8 @@ import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
 import ForgotPassword from "./pages/ForgotPassword";
 import axios from "axios";
-import Navbar from "./components/Navbar";
+import { Container } from "@material-ui/core";
+import Profile from "./pages/Profile";
 
 //TODO: Implement theme colors
 const theme = createMuiTheme(themeFile);
@@ -47,19 +50,22 @@ class App extends Component {
       <MuiThemeProvider theme={theme}>
         <Provider store={store}>
           <Navbar />
-          <Router>
-            <Switch>
-              <Route exact path="/" component={Index}></Route>
-              <AuthRoute exact path="/login" component={Login} />
-              <AuthRoute exact path="/signup" component={SignUp} />
-              <Route exact path="/home" component={Home}></Route>
-              <Route
-                exact
-                path="/forgotpassword"
-                component={ForgotPassword}
-              ></Route>
-            </Switch>
-          </Router>
+          <Container>
+            <Router>
+              <Switch>
+                <Route exact path="/" component={Index}></Route>
+                <AuthRoute exact path="/login" component={Login} />
+                <AuthRoute exact path="/signup" component={SignUp} />
+                <CheckAuthRoute exact path="/home" component={Home} />
+                <AuthRoute
+                  exact
+                  path="/forgotpassword"
+                  component={ForgotPassword}
+                />
+                <CheckAuthRoute exact path="/profile" component={Profile} />
+              </Switch>
+            </Router>
+          </Container>
         </Provider>
       </MuiThemeProvider>
     );

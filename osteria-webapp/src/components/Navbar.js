@@ -23,7 +23,7 @@ const styles = theme => ({
   },
   button: {
     width: 100,
-    margin: 10
+    margin: 5
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1
@@ -45,9 +45,25 @@ class Navbar extends Component {
             <Typography className={classes.space}></Typography>
 
             {authenticated === true ? (
-              <div>authenticated</div>
-            ) : (
+              // Authenticated
               <div>
+                <Button color="inherit" href="/home" className={classes.button}>
+                  Home
+                </Button>
+                <Button
+                  color="inherit"
+                  href="/profile"
+                  className={classes.button}
+                >
+                  Profile
+                </Button>
+              </div>
+            ) : (
+              // Unauthenticated
+              <div>
+                <Button color="inherit" href="/" className={classes.button}>
+                  Home
+                </Button>
                 <Button
                   color="inherit"
                   href="/signup"

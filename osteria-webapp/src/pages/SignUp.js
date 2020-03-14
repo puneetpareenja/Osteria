@@ -31,15 +31,15 @@ import { Container } from "@material-ui/core";
 
 const styles = {
   root: {
-    height: "90vh",
+    height: "85vh",
     margin: "auto",
-    marginTop: "5vh"
+    marginTop: "10vh"
   },
   image: {
     // background: `url(${signup})`,
     background: `url(${signup2})`,
     backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
+    backgroundSize: "contain",
     backgroundPosition: "center"
   },
   paper: {

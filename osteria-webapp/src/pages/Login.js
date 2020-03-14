@@ -30,15 +30,15 @@ import { Container } from "@material-ui/core";
 
 const styles = {
   root: {
-    height: "90vh",
+    height: "85vh",
     margin: "auto",
-    marginTop: "5vh"
+    marginTop: "10vh"
   },
   image: {
     // background: `url(${login})`,
     background: `url(${login2})`,
     backgroundRepeat: "no-repeat",
-    backgroundSize: "cover",
+    backgroundSize: "contain",
     backgroundPosition: "center"
   },
   paper: {
@@ -104,18 +104,15 @@ class Login extends Component {
 
     return (
       <Container>
-        <Grid container component="main" className={classes.root}>
+        <Grid
+          container
+          component={Paper}
+          elevation={6}
+          className={classes.root}
+        >
           <CssBaseline />
           <Grid item xs={false} sm={4} md={7} className={classes.image}></Grid>
-          <Grid
-            item
-            xs={12}
-            sm={8}
-            md={5}
-            component={Paper}
-            elevation={6}
-            square
-          >
+          <Grid item xs={12} sm={8} md={5} square>
             <div className={classes.paper}>
               <Logo size="70"></Logo>
               <Typography component="h1" variant="h5">
