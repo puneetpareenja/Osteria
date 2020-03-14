@@ -8,6 +8,14 @@ import Logo from "../components/Logo";
 import Link from "@material-ui/core/Link";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import Avatar from "@material-ui/core/Avatar";
+import { ListItemIcon, ListItemText } from "@material-ui/core";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { logoutUser } from "../redux/actions/userActions";
+import { Redirect } from "react-router-dom";
 
 const styles = theme => ({
   root: {
@@ -31,8 +39,33 @@ const styles = theme => ({
 });
 
 class Navbar extends Component {
+  state = {
+    anchorEl: null
+  };
+
+  handleClick = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+
+  handleLogout = () => {
+    window.location.href = "/";
+    this.props.logoutUser();
+  };
+
   render() {
-    const { classes, authenticated } = this.props;
+    const {
+      classes,
+
+      user: {
+        credentials: { name, imageUrl },
+        authenticated
+      }
+    } = this.props;
+    const { anchorEl } = this.state;
 
     return (
       <div className={classes.root}>
@@ -50,13 +83,35 @@ class Navbar extends Component {
                 <Button color="inherit" href="/home" className={classes.button}>
                   Home
                 </Button>
-                <Button
-                  color="inherit"
-                  href="/profile"
-                  className={classes.button}
-                >
-                  Profile
+                <Button>
+                  <Avatar src={imageUrl} onClick={this.handleClick} />
                 </Button>
+                <Menu
+                  id="simple-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={this.handleClose}
+                >
+                  <Link
+                    href="/profile"
+                    color="inherit"
+                    style={{ textDecoration: "none" }}
+                  >
+                    <MenuItem onClick={this.linkToProfile}>
+                      <ListItemIcon>
+                        <AccountCircleIcon />
+                      </ListItemIcon>
+                      <ListItemText>Profile</ListItemText>
+                    </MenuItem>
+                  </Link>
+                  <MenuItem onClick={this.handleLogout}>
+                    <ListItemIcon>
+                      <ExitToAppIcon />
+                    </ListItemIcon>
+                    <ListItemText>Logout</ListItemText>
+                  </MenuItem>
+                </Menu>
               </div>
             ) : (
               // Unauthenticated
@@ -89,11 +144,17 @@ class Navbar extends Component {
 }
 
 const mapStateToProps = state => ({
-  authenticated: state.user.authenticated
+  user: state.user
 });
 
+const mapActionToProps = { logoutUser };
+
 Navbar.propTypes = {
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  logoutUser: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(Navbar));
+export default connect(
+  mapStateToProps,
+  mapActionToProps
+)(withStyles(styles)(Navbar));

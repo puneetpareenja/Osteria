@@ -1,21 +1,20 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import profileImage from "../images/profile.svg";
 
 // MUI
-import Button from "@material-ui/core/Button";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Paper from "@material-ui/core/Paper";
-import MuiLink from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
+
 import {
   Avatar,
   Box,
   Typography,
   IconButton,
-  Tooltip
+  Tooltip,
+  Button
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 
@@ -120,6 +119,9 @@ class Profile extends Component {
                 <Typography className={classes.email} align="center">
                   {email}
                 </Typography>
+                <Button variant="contained" color="primary">
+                  Update Password
+                </Button>
               </div>
             ) : (
               <p>loading...</p>

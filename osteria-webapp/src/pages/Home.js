@@ -7,7 +7,8 @@ import Container from "@material-ui/core/Container";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import CssBaseline from "@material-ui/core/CssBaseline";
-
+import Fab from "@material-ui/core/Fab";
+import AddIcon from "@material-ui/icons/Add";
 // Components
 import Navbar from "../components/Navbar";
 import ItemSekeleton from "../components/ItemSkeleton";
@@ -17,11 +18,10 @@ import Item from "../components/Item";
 import AppDrawer from "../components/AppDrawer";
 
 const styles = theme => ({
-  root: {
-    display: "flex"
-  },
-  content: {
-    background: "#FF0000"
+  fab: {
+    position: "fixed",
+    bottom: theme.spacing(2),
+    right: theme.spacing(2)
   }
 });
 
@@ -66,10 +66,26 @@ class Home extends Component {
     );
     return (
       <div>
-        {/* <AppDrawer /> */}
+        <Fab
+          variant="extended"
+          size="medium"
+          color="primary"
+          aria-label="add"
+          className={classes.fab}
+          style={{
+            position: "fixed",
+            bottom: 80,
+            right: 80
+          }}
+        >
+          <AddIcon />
+          Add New Item
+        </Fab>
 
         <main className={classes.content} style={{ padding: 20 }}>
-          <Grid container>{itemsMarkup}</Grid>
+          <Grid container spacing={3}>
+            {itemsMarkup}
+          </Grid>
         </main>
       </div>
     );
