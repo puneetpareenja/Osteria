@@ -7,18 +7,19 @@ exports.getAllItems = (request, response) => {
     .orderBy("category")
     .get()
     .then(data => {
-      let screams = [];
+      let items = [];
       data.forEach(doc => {
-        screams.push({
+        items.push({
           itemId: doc.id,
           name: doc.data().name,
           description: doc.data().description,
           price: doc.data().price,
           category: doc.data().category,
-          imageUrl: doc.data().imageUrl
+          imageUrl: doc.data().imageUrl,
+          special: doc.data().special
         });
       });
-      return response.json(screams);
+      return response.json(items);
     })
     .catch(err => {
       console.log(err);
@@ -34,7 +35,8 @@ exports.addItem = (request, response) => {
     name: request.body.name,
     price: request.body.price,
     category: request.body.category,
-    imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/items%2F${noImage}?alt=media`
+    imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/items%2F${noImage}?alt=media`,
+    special: false
   };
 
   db.collection("items")
@@ -139,4 +141,58 @@ exports.uploadItemImage = (request, response) => {
   });
 
   busboy.end(request.rawBody);
+};
+
+exports.special = (request, response) => {
+  const itemId = request.params.itemId;
+  const special = true;
+  return db
+    .doc(`items/${itemId}`)
+    .update({ special })
+    .then(() => {
+      return response.json({ message: "Item added to Specials" });
+    })
+    .catch(err => {
+      console.error(err);
+      return response.status(500).json({ error: err.code });
+    });
+};
+
+exports.regular = (request, response) => {
+  const itemId = request.params.itemId;
+  const special = false;
+  return db
+    .doc(`items/${itemId}`)
+    .update({ special })
+    .then(() => {
+      return response.json({ message: "Item removed from Specials" });
+    })
+    .catch(err => {
+      console.error(err);
+      return response.status(500).json({ error: err.code });
+    });
+};
+
+exports.getSpecials = (request, response) => {
+  db.collection("items")
+    .where("special", "==", true)
+    .get()
+    .then(data => {
+      let items = [];
+      data.forEach(doc => {
+        items.push({
+          itemId: doc.id,
+          name: doc.data().name,
+          description: doc.data().description,
+          price: doc.data().price,
+          category: doc.data().category,
+          imageUrl: doc.data().imageUrl,
+          special: doc.data().special
+        });
+      });
+      return response.json(items);
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };

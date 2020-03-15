@@ -13,7 +13,10 @@ const {
   addItem,
   deleteItem,
   getItem,
-  uploadItemImage
+  uploadItemImage,
+  special,
+  regular,
+  getSpecials
 } = require("./handlers/items");
 
 const { fbAuth } = require("./util/fbAuth");
@@ -30,6 +33,9 @@ app.post("/addItem", fbAuth, addItem);
 app.get("/item/:itemId", getItem);
 app.delete("/item/:itemId", fbAuth, deleteItem);
 app.post("/item/image/:itemId", fbAuth, uploadItemImage);
+app.get("/item/:itemId/special", fbAuth, special);
+app.get("/item/:itemId/regular", fbAuth, regular);
+app.get("/specials", getSpecials);
 
 // Exporting the API
 exports.api = functions.https.onRequest(app);
