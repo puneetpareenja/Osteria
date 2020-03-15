@@ -3,19 +3,13 @@ import axios from "axios";
 
 // Material UI
 import Grid from "@material-ui/core/Grid";
-import Container from "@material-ui/core/Container";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
-import Box from "@material-ui/core/Box";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import { withStyles } from "@material-ui/core/styles";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 // Components
-import Navbar from "../components/Navbar";
 import ItemSekeleton from "../components/ItemSkeleton";
-import Typography from "@material-ui/core/Typography";
 
 import Item from "../components/Item";
-import AppDrawer from "../components/AppDrawer";
 
 const styles = theme => ({
   fab: {
@@ -27,7 +21,8 @@ const styles = theme => ({
 
 class Home extends Component {
   state = {
-    items: null
+    items: null,
+    open: false
   };
   componentDidMount() {
     axios

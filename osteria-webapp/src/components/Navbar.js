@@ -15,7 +15,6 @@ import { ListItemIcon, ListItemText } from "@material-ui/core";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { logoutUser } from "../redux/actions/userActions";
-import { Redirect } from "react-router-dom";
 
 const styles = theme => ({
   root: {
@@ -61,7 +60,7 @@ class Navbar extends Component {
       classes,
 
       user: {
-        credentials: { name, imageUrl },
+        credentials: { imageUrl },
         authenticated
       }
     } = this.props;

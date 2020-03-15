@@ -8,15 +8,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 
-import {
-  Avatar,
-  Box,
-  Typography,
-  IconButton,
-  Tooltip,
-  Button
-} from "@material-ui/core";
-import EditIcon from "@material-ui/icons/Edit";
+import { Avatar, Typography, Tooltip, Button } from "@material-ui/core";
 
 //Redux
 import { uploadUserImage } from "../redux/actions/userActions";
@@ -81,19 +73,13 @@ class Profile extends Component {
     const {
       classes,
       user: {
-        credentials: { name, email, imageUrl, createdAt, userId }
+        credentials: { name, email, imageUrl }
       },
       loading
     } = this.props;
 
     let profileMarkUp = (
-      <Grid
-        container
-        component="main"
-        component={Paper}
-        elevation={6}
-        className={classes.root}
-      >
+      <Grid container component={Paper} elevation={6} className={classes.root}>
         <Grid item xs={false} sm={4} md={7} className={classes.image} square />
         <Grid item xs={12} sm={8} md={5} square>
           <div className={classes.profile}>
