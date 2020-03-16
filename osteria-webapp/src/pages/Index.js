@@ -35,7 +35,8 @@ const styles = {
     backgroundPosition: "center"
   },
   data: {
-    padding: 100
+    padding: 80,
+    paddingTop: "25%"
   }
 };
 
@@ -50,8 +51,16 @@ export class Index extends Component {
           <Grid container component="main" className={classes.frame}>
             <CssBaseline />
             <Grid item xs={false} sm={6} md={6} className={classes.image} />
-            <Grid item xs={12} sm={6} md={6} square className={classes.data}>
-              <Typography variant="h3">
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              md={6}
+              square
+              className={classes.data}
+              alignItems="center"
+            >
+              <Typography variant="h5">
                 Osteria is an app that enables a restaurant to receive orders
                 via voice interface and interacts on behalf of the restaurants
                 with its customers to take orders
@@ -60,8 +69,16 @@ export class Index extends Component {
           </Grid>
           <Grid container component="main" className={classes.frame}>
             <CssBaseline />
-            <Grid item xs={12} sm={6} md={6} square className={classes.data}>
-              <Typography variant="h3">
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              md={6}
+              square
+              className={classes.data}
+              alignItems="center"
+            >
+              <Typography variant="h5">
                 Osteria is an app that enables a restaurant to receive orders
                 via voice interface and interacts on behalf of the restaurants
                 with its customers to take orders

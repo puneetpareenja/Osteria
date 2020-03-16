@@ -7,13 +7,11 @@ import {
   ADD_ITEM,
   CLEAR_ERRORS,
   LOADING_UI,
-  SET_ITEM,
   STOP_LOADING_UI,
   SET_ITEMS,
   DELETE_ITEM
 } from "../types";
 import axios from "axios";
-I;
 
 export const getItems = () => dispatch => {
   dispatch({ type: LOADING_DATA });
