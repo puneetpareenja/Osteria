@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from "react";
-import axios from "axios";
 
 // Material UI
 import Grid from "@material-ui/core/Grid";
@@ -10,6 +9,9 @@ import AddIcon from "@material-ui/icons/Add";
 import ItemSekeleton from "../components/ItemSkeleton";
 
 import Item from "../components/Item";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { getItems } from "../redux/actions/dataActions";
 
 const styles = theme => ({
   fab: {
@@ -25,24 +27,17 @@ class Home extends Component {
     open: false
   };
   componentDidMount() {
-    axios
-      .get("/items")
-      .then(res => {
-        this.setState({
-          items: res.data
-        });
-      })
-      .catch(err => console.log(err));
+    this.props.getItems();
   }
 
   render() {
-    const classes = this.props;
-    let itemsMarkup = this.state.items ? (
-      this.state.items.map(item => (
-        <Grid key={item.id} item xs>
-          <Item item={item} />
-        </Grid>
-      ))
+    const {
+      data: { items, loading },
+      classes
+    } = this.props;
+
+    let itemsMarkup = !loading ? (
+      items.map(item => <Item key={item.itemId} item={item} />)
     ) : (
       <Fragment>
         <Grid item xs>
@@ -87,4 +82,14 @@ class Home extends Component {
   }
 }
 
-export default withStyles(styles)(Home);
+const mapStateToProps = state => ({
+  data: state.data
+});
+
+Home.propTypes = {
+  getItems: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired
+};
+
+export default connect(mapStateToProps, { getItems })(withStyles(styles)(Home));
