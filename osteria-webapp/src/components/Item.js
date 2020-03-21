@@ -11,6 +11,7 @@ import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteItemButton from "./DeleteItemButton";
+import SpecialIconButton from "./SpecialItemButton";
 // import CardHeader from "@material-ui/core/CardHeader";
 // import Chip from "@material-ui/core/Chip";
 // import Button from "@material-ui/core/Button";
@@ -66,12 +67,7 @@ class Item extends Component {
           </Typography>
         </CardContent>
         <CardActions className={classes.actions}>
-          <IconButton aria-label="mark as special">
-            <FavoriteIcon />
-          </IconButton>
-          <IconButton aria-label="edit">
-            <EditIcon />
-          </IconButton>
+          <SpecialIconButton itemId={item.itemId} special={item.special} />
           <DeleteItemButton itemId={item.itemId} name={item.name} />
         </CardActions>
       </Card>

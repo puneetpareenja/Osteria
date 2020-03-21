@@ -33,20 +33,26 @@ export default function(state = initialState, action) {
         item: action.payload
       };
     case SET_SPECIAL:
-    case SET_REGULAR:
-      let index = state.items.findIndex(
-        item => item.itemId === action.payload.itemId
+      let specialIndex = state.items.findIndex(
+        item => item.itemId === action.payload
       );
-      state.items[index] = action.payload;
-      if (state.item.itemId === action.payload.itemId) {
-        state.item = action.payload;
-      }
+      state.items[specialIndex].special = true;
+      return {
+        ...state
+      };
+    case SET_REGULAR:
+      let regularIndex = state.items.findIndex(
+        item => item.itemId === action.payload
+      );
+      state.items[regularIndex].special = false;
       return {
         ...state
       };
     case DELETE_ITEM:
-      index = state.items.findIndex(item => item.itemId === action.payload);
-      state.items.splice(index, 1);
+      let deleteIndex = state.items.findIndex(
+        item => item.itemId === action.payload
+      );
+      state.items.splice(deleteIndex, 1);
       return {
         ...state
       };

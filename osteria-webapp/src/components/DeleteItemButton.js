@@ -33,7 +33,7 @@ class DeleteItemButton extends Component {
   render() {
     return (
       <Fragment>
-        <IconButton aria-label="edit" onClick={this.handleOpen}>
+        <IconButton aria-label="delete" onClick={this.handleOpen}>
           <DeleteIcon color="error" />
         </IconButton>
         <Dialog

@@ -1,15 +1,15 @@
 import {
-  SET_ITEM,
+  SET_ITEMS,
   LOADING_DATA,
   SET_SPECIAL,
   SET_REGULAR,
+  DELETE_ITEM,
   SET_ERRORS,
   ADD_ITEM,
   CLEAR_ERRORS,
   LOADING_UI,
-  STOP_LOADING_UI,
-  SET_ITEMS,
-  DELETE_ITEM
+  SET_ITEM,
+  STOP_LOADING_UI
 } from "../types";
 import axios from "axios";
 
@@ -70,7 +70,7 @@ export const setSpecial = itemId => dispatch => {
     .then(res => {
       dispatch({
         type: SET_SPECIAL,
-        payload: res.data
+        payload: itemId
       });
     })
     .catch(err => console.log(err));
@@ -82,7 +82,7 @@ export const setRegular = itemId => dispatch => {
     .then(res => {
       dispatch({
         type: SET_REGULAR,
-        payload: res.data
+        payload: itemId
       });
     })
     .catch(err => console.log(err));
