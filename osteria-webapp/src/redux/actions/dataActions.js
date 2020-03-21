@@ -46,7 +46,6 @@ export const getItem = itemId => dispatch => {
 };
 
 export const addItem = newItem => dispatch => {
-  dispatch({ type: LOADING_UI });
   axios
     .post("/item", newItem)
     .then(res => {
@@ -54,7 +53,6 @@ export const addItem = newItem => dispatch => {
         type: ADD_ITEM,
         payload: res.data
       });
-      dispatch(clearErrors());
     })
     .catch(err => {
       dispatch({

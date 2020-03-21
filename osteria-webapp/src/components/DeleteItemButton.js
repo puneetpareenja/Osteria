@@ -13,7 +13,11 @@ import DeleteIcon from "@material-ui/icons/DeleteOutline";
 import { connect } from "react-redux";
 import { deleteItem } from "../redux/actions/dataActions";
 
-const styles = theme => ({});
+const styles = theme => ({
+  dialog: {
+    padding: theme.spacing(2)
+  }
+});
 
 class DeleteItemButton extends Component {
   state = {
@@ -31,6 +35,7 @@ class DeleteItemButton extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     return (
       <Fragment>
         <IconButton aria-label="delete" onClick={this.handleOpen}>
@@ -41,9 +46,10 @@ class DeleteItemButton extends Component {
           onClose={this.handleClose}
           fullWidth
           maxWidth="sm"
+          className={classes.dialog}
         >
           <DialogTitle>Are you sure you want to delete this Item?</DialogTitle>
-          <DialogActions>
+          <DialogActions className={classes.dialog}>
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>

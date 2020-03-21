@@ -3,8 +3,7 @@ import React, { Component, Fragment } from "react";
 // Material UI
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
-import Fab from "@material-ui/core/Fab";
-import AddIcon from "@material-ui/icons/Add";
+
 // Components
 import ItemSekeleton from "../components/ItemSkeleton";
 
@@ -12,6 +11,8 @@ import Item from "../components/Item";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getItems } from "../redux/actions/dataActions";
+
+import AddItemButton from "../components/AddItemButton";
 
 const styles = theme => ({
   fab: {
@@ -56,22 +57,7 @@ class Home extends Component {
     );
     return (
       <div>
-        <Fab
-          variant="extended"
-          size="medium"
-          color="primary"
-          aria-label="add"
-          className={classes.fab}
-          style={{
-            position: "fixed",
-            bottom: 80,
-            right: 80
-          }}
-        >
-          <AddIcon />
-          Add New Item
-        </Fab>
-
+        <AddItemButton />
         <main className={classes.content} style={{ padding: 20 }}>
           <Grid container spacing={3}>
             {itemsMarkup}

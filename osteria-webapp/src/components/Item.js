@@ -7,9 +7,6 @@ import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import EditIcon from "@material-ui/icons/Edit";
 import DeleteItemButton from "./DeleteItemButton";
 import SpecialIconButton from "./SpecialItemButton";
 // import CardHeader from "@material-ui/core/CardHeader";
@@ -42,7 +39,7 @@ const styles = theme => ({
     marginTop: 10
   },
   actions: {
-    margin: theme.spacing(1)
+    marginTop: theme.spacing(2)
   }
 });
 
