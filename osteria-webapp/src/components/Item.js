@@ -17,7 +17,8 @@ import DeleteItemButton from "./DeleteItemButton";
 
 const styles = theme => ({
   root: {
-    width: 280
+    width: 280,
+    margin: 8
   },
   media: {
     height: 200
@@ -71,7 +72,7 @@ class Item extends Component {
           <IconButton aria-label="edit">
             <EditIcon />
           </IconButton>
-          <DeleteItemButton itemId={item.itemId} />
+          <DeleteItemButton itemId={item.itemId} name={item.name} />
         </CardActions>
       </Card>
     );

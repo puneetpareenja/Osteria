@@ -10,6 +10,9 @@ export default {
     secondary: {
       main: "#FFFFFF",
       contrastText: "#000000"
+    },
+    error: {
+      main: "#ff604f"
     }
   }
 };

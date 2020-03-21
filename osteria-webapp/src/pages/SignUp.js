@@ -204,7 +204,7 @@ class SignUp extends Component {
                   fullWidth
                   name="confirmPassword"
                   label="Confirm Password"
-                  type="confirmPassword"
+                  type="password"
                   id="password"
                   value={this.state.confirmPassword}
                   onChange={this.handleChange}
