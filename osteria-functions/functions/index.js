@@ -5,7 +5,8 @@ const {
   signup,
   login,
   uploadUserImage,
-  getAuthenticatedUser
+  getAuthenticatedUser,
+  getAllUsers
 } = require("./handlers/users");
 
 const {
@@ -26,6 +27,7 @@ app.post("/signup", signup);
 app.post("/login", login);
 app.post("/user/image", fbAuth, uploadUserImage);
 app.get("/user", fbAuth, getAuthenticatedUser);
+app.get("/users", getAllUsers);
 
 // Item Routes
 app.get("/items", getAllItems);

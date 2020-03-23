@@ -12,7 +12,8 @@ exports.signup = (request, response) => {
     email: request.body.email,
     password: request.body.password,
     confirmPassword: request.body.confirmPassword,
-    type: request.body.type
+    type: request.body.type,
+    active: true
   };
 
   const { valid, errors } = validateSignUpData(newUser);
@@ -168,4 +169,26 @@ exports.uploadUserImage = (request, response) => {
   });
 
   busboy.end(request.rawBody);
+};
+
+exports.getAllUsers = (request, response) => {
+  db.collection("users")
+    .orderBy("type")
+    .get()
+    .then(data => {
+      let employees = [];
+      data.forEach(doc => {
+        employees.push({
+          id: doc.id,
+          name: doc.data().name,
+          email: doc.data().email,
+          type: doc.data().type,
+          imageUrl: doc.data().imageUrl
+        });
+      });
+      return response.json(employees);
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };
