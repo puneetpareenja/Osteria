@@ -45,6 +45,24 @@ export const signUpUser = (newUserData, history) => dispatch => {
       });
     });
 };
+export const addEmployee = newUserData => dispatch => {
+  dispatch({ type: LOADING_UI });
+  axios
+    .post("/signup", newUserData)
+    .then(res => {
+      dispatch({
+        type: "ADD_EMPLOYEE",
+        payload: newUserData
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data
+      });
+    });
+};
 
 export const logoutUser = () => dispatch => {
   localStorage.removeItem("FBIdToken");

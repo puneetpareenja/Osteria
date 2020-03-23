@@ -16,6 +16,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Paper from "@material-ui/core/Paper";
 import AddItemButton from "../components/AddItemButton";
+import AddEmployeeButton from "../components/AddEmployeeButton";
 
 const styles = theme => ({
   fab: {
@@ -86,7 +87,11 @@ class Home extends Component {
               {itemsMarkup}
             </Grid>
           </div>
-        ) : null}
+        ) : (
+          <div>
+            <AddEmployeeButton className={classes.fab} />
+          </div>
+        )}
       </div>
     );
   }
