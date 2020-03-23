@@ -47,11 +47,14 @@ export const getItem = itemId => dispatch => {
 
 export const addItem = newItem => dispatch => {
   axios
-    .post("/item", newItem)
+    .post("/addItem", newItem)
     .then(res => {
       dispatch({
         type: ADD_ITEM,
-        payload: res.data
+        payload: {
+          itemId: res.data.id,
+          ...res.data
+        }
       });
     })
     .catch(err => {

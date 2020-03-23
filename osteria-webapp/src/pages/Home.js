@@ -12,16 +12,19 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getItems, addItem } from "../redux/actions/dataActions";
 
-import AddItem from "../components/AddItem";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Paper from "@material-ui/core/Paper";
+import AddItemButton from "../components/AddItemButton";
 
 const styles = theme => ({
   fab: {
     position: "fixed",
     bottom: theme.spacing(2),
     right: theme.spacing(2)
+  },
+  itemContainer: {
+    padding: theme.spacing(2)
   }
 });
 
@@ -77,14 +80,12 @@ class Home extends Component {
           <Tab label="Employees" />
         </Tabs>
         {this.state.tabValue === 0 ? (
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={3}>
-              <AddItem />
+          <div>
+            <AddItemButton className={classes.fab} />
+            <Grid container spacing={2} className={classes.itemContainer}>
+              {itemsMarkup}
             </Grid>
-            <Grid item xs={12} md={9}>
-              <Grid container>{itemsMarkup}</Grid>
-            </Grid>
-          </Grid>
+          </div>
         ) : null}
       </div>
     );

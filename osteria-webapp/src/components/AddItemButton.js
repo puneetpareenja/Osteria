@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addItem } from "../redux/actions/dataActions";
-import Button from "@material-ui/core/Button";
+import { addItem, getItems } from "../redux/actions/dataActions";
+import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -9,14 +9,10 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-// import Button from "@material-ui/core/Button";
+import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 
 const styles = theme => ({
-  fab: {
-    float: "right",
-    marginRight: theme.spacing(4)
-  },
   dialog: {
     padding: theme.spacing(2)
   }
@@ -65,22 +61,22 @@ class AddItemButton extends Component {
     const { classes } = this.props;
     return (
       <div>
-        <Button
-          variant="contained"
+        <Fab
+          variant="extended"
           size="medium"
           color="primary"
           aria-label="add"
           className={classes.fab}
-          // style={{
-          //   position: "fixed",
-          //   bottom: 80,
-          //   right: 80
-          // }}
+          style={{
+            position: "fixed",
+            bottom: 80,
+            right: 80
+          }}
           onClick={this.handleOpen}
         >
           <AddIcon />
           Add New Item
-        </Button>
+        </Fab>
 
         <Dialog
           open={this.state.open}
@@ -150,4 +146,6 @@ AddItemButton.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default connect(null, { addItem })(withStyles(styles)(AddItemButton));
+export default connect(null, { addItem, getItems })(
+  withStyles(styles)(AddItemButton)
+);

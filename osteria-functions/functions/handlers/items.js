@@ -42,7 +42,10 @@ exports.addItem = (request, response) => {
   db.collection("items")
     .add(newItem)
     .then(doc => {
-      response.json({ message: `document ${doc.id} created successfully` });
+      response.json({
+        id: doc.id,
+        ...newItem
+      });
     })
     .catch(error => {
       response.status(500).json({ message: `something went wrong` });
