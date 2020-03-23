@@ -9,7 +9,6 @@ import CardActions from "@material-ui/core/CardActions";
 import Typography from "@material-ui/core/Typography";
 import DeleteItemButton from "./DeleteItemButton";
 import SpecialIconButton from "./SpecialItemButton";
-import { connect } from "react-redux";
 
 const styles = theme => ({
   root: {

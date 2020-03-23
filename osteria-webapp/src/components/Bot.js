@@ -1,7 +1,6 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { sendMessage } from "../redux/chat";
-import Paper from "@material-ui/core/Paper";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { ChatFeed, Message } from "react-chat-ui";
 import TextField from "@material-ui/core/TextField";

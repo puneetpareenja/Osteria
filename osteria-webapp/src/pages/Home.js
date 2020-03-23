@@ -12,7 +12,10 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getItems, addItem } from "../redux/actions/dataActions";
 
-import AddItemButton from "../components/AddItemButton";
+import AddItem from "../components/AddItem";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Paper from "@material-ui/core/Paper";
 
 const styles = theme => ({
   fab: {
@@ -25,11 +28,16 @@ const styles = theme => ({
 class Home extends Component {
   state = {
     items: null,
-    open: false
+    open: false,
+    tabValue: 0
   };
   componentDidMount() {
     this.props.getItems();
   }
+
+  handleChange = (event, newValue) => {
+    this.setState({ tabValue: newValue });
+  };
 
   render() {
     const {
@@ -58,12 +66,26 @@ class Home extends Component {
     );
     return (
       <div>
-        <AddItemButton />
-        <main className={classes.content} style={{ padding: 20 }}>
-          <Grid container spacing={3}>
-            {itemsMarkup}
+        <Tabs
+          value={this.state.tabValue}
+          onChange={this.handleChange}
+          indicatorColor="primary"
+          textColor="primary"
+          centered
+        >
+          <Tab label="Items" />
+          <Tab label="Employees" />
+        </Tabs>
+        {this.state.tabValue === 0 ? (
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={3}>
+              <AddItem />
+            </Grid>
+            <Grid item xs={12} md={9}>
+              <Grid container>{itemsMarkup}</Grid>
+            </Grid>
           </Grid>
-        </main>
+        ) : null}
       </div>
     );
   }
