@@ -10,7 +10,7 @@ import ItemSekeleton from "../components/ItemSkeleton";
 import Item from "../components/Item";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { getItems } from "../redux/actions/dataActions";
+import { getItems, addItem } from "../redux/actions/dataActions";
 
 import AddItemButton from "../components/AddItemButton";
 
@@ -34,11 +34,12 @@ class Home extends Component {
   render() {
     const {
       data: { items, loading },
+      credentials: { type },
       classes
     } = this.props;
 
     let itemsMarkup = !loading ? (
-      items.map(item => <Item key={item.itemId} item={item} />)
+      items.map(item => <Item key={item.itemId} item={item} userType={type} />)
     ) : (
       <Fragment>
         <Grid item xs>
@@ -69,7 +70,8 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => ({
-  data: state.data
+  data: state.data,
+  credentials: state.user.credentials
 });
 
 Home.propTypes = {
@@ -78,4 +80,6 @@ Home.propTypes = {
   data: PropTypes.object.isRequired
 };
 
-export default connect(mapStateToProps, { getItems })(withStyles(styles)(Home));
+export default connect(mapStateToProps, { getItems, addItem })(
+  withStyles(styles)(Home)
+);

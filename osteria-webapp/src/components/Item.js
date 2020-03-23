@@ -9,9 +9,7 @@ import CardActions from "@material-ui/core/CardActions";
 import Typography from "@material-ui/core/Typography";
 import DeleteItemButton from "./DeleteItemButton";
 import SpecialIconButton from "./SpecialItemButton";
-// import CardHeader from "@material-ui/core/CardHeader";
-// import Chip from "@material-ui/core/Chip";
-// import Button from "@material-ui/core/Button";
+import { connect } from "react-redux";
 
 const styles = theme => ({
   root: {
@@ -30,22 +28,17 @@ const styles = theme => ({
     fontWeight: "800"
   },
   content: {
-    padding: 20,
-    height: 80
-  },
-  description: {
-    display: "block",
-    height: 60,
-    marginTop: 10
+    padding: theme.spacing(2),
+    height: theme.spacing(14)
   },
   actions: {
-    marginTop: theme.spacing(2)
+    float: "right"
   }
 });
 
 class Item extends Component {
   render() {
-    const { classes, item } = this.props;
+    const { classes, item, userType } = this.props;
     return (
       <Card className={classes.root}>
         <CardMedia
@@ -63,10 +56,12 @@ class Item extends Component {
             {item.description}
           </Typography>
         </CardContent>
-        <CardActions className={classes.actions}>
-          <SpecialIconButton itemId={item.itemId} special={item.special} />
-          <DeleteItemButton itemId={item.itemId} name={item.name} />
-        </CardActions>
+        {userType === "admin" ? (
+          <CardActions className={classes.actions}>
+            <SpecialIconButton itemId={item.itemId} special={item.special} />
+            <DeleteItemButton itemId={item.itemId} name={item.name} />
+          </CardActions>
+        ) : null}
       </Card>
     );
   }
