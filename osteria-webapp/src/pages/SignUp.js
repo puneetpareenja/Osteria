@@ -93,7 +93,8 @@ class SignUp extends Component {
       name: this.state.name,
       email: this.state.email,
       password: this.state.password,
-      confirmPassword: this.state.confirmPassword
+      confirmPassword: this.state.confirmPassword,
+      type: "customer"
     };
     this.props.signUpUser(newUserData, this.props.history);
   };
@@ -120,7 +121,7 @@ class SignUp extends Component {
         >
           <CssBaseline />
           <Grid item xs={false} sm={4} md={7} className={classes.image}></Grid>
-          <Grid item xs={12} sm={8} md={5} square>
+          <Grid item xs={12} sm={8} md={5}>
             <div className={classes.paper}>
               <Logo size="70"></Logo>
               <Typography component="h1" variant="h5">
