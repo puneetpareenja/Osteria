@@ -77,7 +77,8 @@ const mapStateToProps = state => ({
 Home.propTypes = {
   getItems: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
-  data: PropTypes.object.isRequired
+  data: PropTypes.object.isRequired,
+  credentials: PropTypes.object.isRequired
 };
 
 export default connect(mapStateToProps, { getItems, addItem })(
