@@ -2,12 +2,14 @@ import {
   SET_USER,
   SET_AUTHENTICATED,
   SET_UNAUTHENTICATED,
-  LOADING_USER
+  LOADING_USER,
+  GET_EMPLOYEES
 } from "../types";
 
 const initialState = {
   authenticated: false,
   credentials: {},
+  employees: [],
   loading: false
 };
 
@@ -23,6 +25,7 @@ export default function(state = initialState, action) {
     }
     case SET_USER:
       return {
+        ...state,
         authenticated: true,
         loading: false,
         ...action.payload
@@ -31,6 +34,12 @@ export default function(state = initialState, action) {
       return {
         ...state,
         loading: true
+      };
+    }
+    case GET_EMPLOYEES: {
+      return {
+        ...state,
+        employees: action.payload
       };
     }
     default: {

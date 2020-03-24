@@ -70,7 +70,6 @@ class AddEmployeeButton extends Component {
     };
     console.log(newUserData);
     this.props.addEmployee(newUserData);
-    this.handleClose();
   };
 
   handleChange = event => {
@@ -226,7 +225,7 @@ class AddEmployeeButton extends Component {
                 className={classes.button}
                 disabled={loading}
               >
-                Sign Up
+                Add Employee
                 {loading && (
                   <CircularProgress
                     size={24}

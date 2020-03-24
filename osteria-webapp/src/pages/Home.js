@@ -11,12 +11,14 @@ import Item from "../components/Item";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getItems, addItem } from "../redux/actions/dataActions";
+import { getEmployees } from "../redux/actions/userActions";
 
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Paper from "@material-ui/core/Paper";
 import AddItemButton from "../components/AddItemButton";
 import AddEmployeeButton from "../components/AddEmployeeButton";
+import EmployeeTable from "../components/EmployeeTable";
 
 const styles = theme => ({
   fab: {
@@ -37,6 +39,7 @@ class Home extends Component {
   };
   componentDidMount() {
     this.props.getItems();
+    this.props.getEmployees();
   }
 
   handleChange = (event, newValue) => {
@@ -47,7 +50,8 @@ class Home extends Component {
     const {
       data: { items, loading },
       credentials: { type },
-      classes
+      classes,
+      employees
     } = this.props;
 
     let itemsMarkup = !loading ? (
@@ -90,6 +94,7 @@ class Home extends Component {
         ) : (
           <div>
             <AddEmployeeButton className={classes.fab} />
+            <EmployeeTable employees={employees} />
           </div>
         )}
       </div>
@@ -99,7 +104,8 @@ class Home extends Component {
 
 const mapStateToProps = state => ({
   data: state.data,
-  credentials: state.user.credentials
+  credentials: state.user.credentials,
+  employees: state.user.employees
 });
 
 Home.propTypes = {
@@ -109,6 +115,6 @@ Home.propTypes = {
   credentials: PropTypes.object.isRequired
 };
 
-export default connect(mapStateToProps, { getItems, addItem })(
+export default connect(mapStateToProps, { getItems, addItem, getEmployees })(
   withStyles(styles)(Home)
 );

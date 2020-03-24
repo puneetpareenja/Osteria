@@ -4,7 +4,8 @@ import {
   CLEAR_ERRORS,
   LOADING_UI,
   SET_UNAUTHENTICATED,
-  LOADING_USER
+  LOADING_USER,
+  GET_EMPLOYEES
 } from "../types";
 import axios from "axios";
 
@@ -99,4 +100,16 @@ const setAuthorizationHeader = token => {
   const FBIdToken = `Bearer ${token}`;
   localStorage.setItem("FBIdToken", FBIdToken);
   axios.defaults.headers.common["Authorization"] = FBIdToken;
+};
+
+export const getEmployees = () => dispatch => {
+  const employees = [];
+  axios.get("/users").then(res => {
+    res.data.forEach(user => {
+      if (user.type === "chef" || user.type === "admin") {
+        employees.push(user);
+      }
+      dispatch({ type: GET_EMPLOYEES, payload: employees });
+    });
+  });
 };

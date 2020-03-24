@@ -50,7 +50,8 @@ exports.signup = (request, response) => {
         createdAt: new Date().toISOString(),
         imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/users%2F${noImage}?alt=media`,
         type: newUser.type,
-        userId
+        userId,
+        active: newUser.active
       };
       return db.doc(`/users/${newUser.email}`).set(userCredentials);
     })
@@ -179,11 +180,12 @@ exports.getAllUsers = (request, response) => {
       let employees = [];
       data.forEach(doc => {
         employees.push({
-          id: doc.id,
+          id: doc.data().userId,
           name: doc.data().name,
           email: doc.data().email,
           type: doc.data().type,
-          imageUrl: doc.data().imageUrl
+          imageUrl: doc.data().imageUrl,
+          active: doc.data().active
         });
       });
       return response.json(employees);
