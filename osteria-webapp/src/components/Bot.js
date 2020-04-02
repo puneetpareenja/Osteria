@@ -6,15 +6,14 @@ import { ChatFeed, Message } from "react-chat-ui";
 import TextField from "@material-ui/core/TextField";
 
 const styles = theme => ({
-  paper: {
-    margin: theme.spacing(2),
-    padding: theme.spacing(2),
-    height: "80vh"
+  chat: {
+    height: 400,
+    flex: 1
   },
-  textfield: {
-    position: "fixed",
-    // top: 480
-    bottom: 10
+  bottom: {
+    position: "absolute",
+    top: 480,
+    width: "80vw"
   }
 });
 
@@ -39,12 +38,15 @@ class Bot extends Component {
     console.log(messageArray);
     return (
       <div>
-        <ChatFeed messages={messageArray} maxHeight={400} />
+        <ChatFeed
+          messages={messageArray}
+          maxHeight={400}
+          className={classes.chat}
+        />
 
         <TextField
-          className={classes.textfield}
+          className={classes.bottom}
           placeholder="Type a message..."
-          fullWidth
           type="text"
           onKeyDown={this.handleKeyDown}
         />
