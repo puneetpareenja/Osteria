@@ -174,7 +174,7 @@ exports.uploadUserImage = (request, response) => {
 
 exports.getAllUsers = (request, response) => {
   db.collection("users")
-    .orderBy("type")
+    .orderBy("active", "desc")
     .get()
     .then(data => {
       let employees = [];
@@ -192,5 +192,35 @@ exports.getAllUsers = (request, response) => {
     })
     .catch(err => {
       console.log(err);
+    });
+};
+
+exports.setActive = (request, response) => {
+  const email = request.params.email;
+  const active = true;
+  return db
+    .doc(`users/${email}`)
+    .update({ active })
+    .then(() => {
+      return response.json({ message: "User activated" });
+    })
+    .catch(err => {
+      console.error(err);
+      return response.status(500).json({ error: err.code });
+    });
+};
+
+exports.setInactive = (request, response) => {
+  const email = request.params.email;
+  const active = false;
+  return db
+    .doc(`users/${email}`)
+    .update({ active })
+    .then(() => {
+      return response.json({ message: "User deactivated" });
+    })
+    .catch(err => {
+      console.error(err);
+      return response.status(500).json({ error: err.code });
     });
 };
