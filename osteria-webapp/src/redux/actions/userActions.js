@@ -5,7 +5,9 @@ import {
   LOADING_UI,
   SET_UNAUTHENTICATED,
   LOADING_USER,
-  GET_EMPLOYEES
+  GET_EMPLOYEES,
+  ACTIVATE,
+  DEACTIVATE
 } from "../types";
 import axios from "axios";
 
@@ -112,4 +114,28 @@ export const getEmployees = () => dispatch => {
       dispatch({ type: GET_EMPLOYEES, payload: employees });
     });
   });
+};
+
+export const setActive = email => dispatch => {
+  axios
+    .get(`/user/activate/${email}`)
+    .then(() => {
+      dispatch({
+        type: ACTIVATE,
+        payload: email
+      });
+    })
+    .catch(err => console.log(err));
+};
+
+export const setInactive = email => dispatch => {
+  axios
+    .get(`/user/deactivate/${email}`)
+    .then(() => {
+      dispatch({
+        type: DEACTIVATE,
+        payload: email
+      });
+    })
+    .catch(err => console.log(err));
 };

@@ -5,6 +5,8 @@ export const SET_USER = "SET_USER";
 export const LOADING_USER = "LOADING_USER";
 export const ADD_EMPLOYEE = "ADD_EMPLOYEE";
 export const GET_EMPLOYEES = "GET_EMPLOYEES";
+export const ACTIVATE = "ACTIVATE";
+export const DEACTIVATE = "DEACTIVATE";
 
 // UI Reducer Types
 export const SET_ERRORS = "SET_ERRORS";

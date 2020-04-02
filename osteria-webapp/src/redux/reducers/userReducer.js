@@ -3,7 +3,9 @@ import {
   SET_AUTHENTICATED,
   SET_UNAUTHENTICATED,
   LOADING_USER,
-  GET_EMPLOYEES
+  GET_EMPLOYEES,
+  ACTIVATE,
+  DEACTIVATE
 } from "../types";
 
 const initialState = {
@@ -39,7 +41,26 @@ export default function(state = initialState, action) {
     case GET_EMPLOYEES: {
       return {
         ...state,
-        employees: action.payload
+        employees: action.payload,
+        loading: false
+      };
+    }
+    case ACTIVATE: {
+      let emailIndex = state.employees.findIndex(
+        employee => employee.email === action.payload
+      );
+      state.employees[emailIndex].active = true;
+      return {
+        ...state
+      };
+    }
+    case DEACTIVATE: {
+      let emailIndex = state.employees.findIndex(
+        employee => employee.email === action.payload
+      );
+      state.employees[emailIndex].active = false;
+      return {
+        ...state
       };
     }
     default: {
