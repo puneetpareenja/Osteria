@@ -105,14 +105,15 @@ const setAuthorizationHeader = token => {
 };
 
 export const getEmployees = () => dispatch => {
+  dispatch({ type: LOADING_USER });
   const employees = [];
   axios.get("/users").then(res => {
     res.data.forEach(user => {
       if (user.type === "chef" || user.type === "admin") {
         employees.push(user);
       }
-      dispatch({ type: GET_EMPLOYEES, payload: employees });
     });
+    dispatch({ type: GET_EMPLOYEES, payload: employees });
   });
 };
 

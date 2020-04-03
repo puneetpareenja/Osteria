@@ -20,7 +20,7 @@ const styles = theme => ({
 class Bot extends Component {
   handleKeyDown = event => {
     const { sendMessage } = this.props;
-    this.setState({ open: true });
+    // this.setState({ open: true });
     if (event.keyCode === 13) {
       sendMessage(event.target.value);
       event.target.value = "";

@@ -58,9 +58,6 @@ class AddEmployeeButton extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.setState({
-      loading: true
-    });
     const newUserData = {
       name: this.state.name,
       email: this.state.email,
@@ -68,7 +65,6 @@ class AddEmployeeButton extends Component {
       confirmPassword: this.state.confirmPassword,
       type: this.state.type
     };
-    console.log(newUserData);
     this.props.addEmployee(newUserData);
   };
 
@@ -223,15 +219,8 @@ class AddEmployeeButton extends Component {
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                disabled={loading}
               >
                 Add Employee
-                {loading && (
-                  <CircularProgress
-                    size={24}
-                    className={classes.buttonProgress}
-                  />
-                )}
               </Button>
               <Button
                 onClick={this.handleClose}

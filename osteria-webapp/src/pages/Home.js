@@ -15,7 +15,6 @@ import { getEmployees } from "../redux/actions/userActions";
 
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Paper from "@material-ui/core/Paper";
 import AddItemButton from "../components/AddItemButton";
 import AddEmployeeButton from "../components/AddEmployeeButton";
 import EmployeeTable from "../components/EmployeeTable";
@@ -50,8 +49,7 @@ class Home extends Component {
     const {
       data: { items, loading },
       credentials: { type },
-      classes,
-      employees
+      classes
     } = this.props;
 
     let itemsMarkup = !loading ? (
@@ -94,7 +92,7 @@ class Home extends Component {
         ) : (
           <div>
             <AddEmployeeButton className={classes.fab} />
-            <EmployeeTable employees={employees} />
+            <EmployeeTable />
           </div>
         )}
       </div>
@@ -104,8 +102,7 @@ class Home extends Component {
 
 const mapStateToProps = state => ({
   data: state.data,
-  credentials: state.user.credentials,
-  employees: state.user.employees
+  credentials: state.user.credentials
 });
 
 Home.propTypes = {
