@@ -55,7 +55,7 @@ export const addEmployee = newUserData => dispatch => {
     .then(res => {
       dispatch({
         type: "ADD_EMPLOYEE",
-        payload: newUserData
+        payload: { ...newUserData, active: true }
       });
     })
     .catch(err => {

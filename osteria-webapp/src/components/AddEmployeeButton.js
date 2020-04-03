@@ -50,12 +50,6 @@ class AddEmployeeButton extends Component {
     this.setState({ open: false });
   };
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.UI.errors) {
-      this.setState({ errors: nextProps.UI.errors });
-    }
-  }
-
   handleSubmit = event => {
     event.preventDefault();
     const newUserData = {
@@ -66,6 +60,7 @@ class AddEmployeeButton extends Component {
       type: this.state.type
     };
     this.props.addEmployee(newUserData);
+    this.handleClose();
   };
 
   handleChange = event => {

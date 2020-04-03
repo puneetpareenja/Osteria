@@ -5,7 +5,8 @@ import {
   LOADING_USER,
   GET_EMPLOYEES,
   ACTIVATE,
-  DEACTIVATE
+  DEACTIVATE,
+  ADD_EMPLOYEE
 } from "../types";
 
 const initialState = {
@@ -43,6 +44,12 @@ export default function(state = initialState, action) {
         ...state,
         employees: action.payload,
         loading: false
+      };
+    }
+    case ADD_EMPLOYEE: {
+      return {
+        ...state,
+        employees: [action.payload, ...state.employees]
       };
     }
     case ACTIVATE: {
