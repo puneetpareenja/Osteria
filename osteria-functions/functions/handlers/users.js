@@ -74,30 +74,46 @@ exports.login = (request, response) => {
     password: request.body.password
   };
 
-  console.log(validateLoginData(user));
   const { valid, errors } = validateLoginData(user);
 
   if (!valid) return response.status(400).json(errors);
 
-  firebase
-    .auth()
-    .signInWithEmailAndPassword(user.email, user.password)
-    .then(data => {
-      return data.user.getIdToken();
-    })
-    .then(token => {
-      return response.json({ token });
+  db.doc(`/users/${user.email}`)
+    .get()
+    .then(doc => {
+      if (doc.exists) {
+        if (!doc.data().active) {
+          return response
+            .status(400)
+            .json({ general: "Account is disabled. Contact admin" });
+        } else {
+          firebase
+            .auth()
+            .signInWithEmailAndPassword(user.email, user.password)
+            .then(data => {
+              return data.user.getIdToken();
+            })
+            .then(token => {
+              return response.json({ token });
+            })
+            .catch(err => {
+              console.error(err);
+              if (
+                err.code === "auth/wrong-password" ||
+                err.code === "auth/user-not-found"
+              ) {
+                return response
+                  .status(400)
+                  .json({ general: "Invalid credentials" });
+              } else {
+                return response.status(500).json({ error: err.code });
+              }
+            });
+        }
+      }
     })
     .catch(err => {
       console.error(err);
-      if (
-        err.code === "auth/wrong-password" ||
-        err.code === "auth/user-not-found"
-      ) {
-        return response.status(400).json({ general: "Invalid credentials" });
-      } else {
-        return response.status(500).json({ error: err.code });
-      }
     });
 };
 
