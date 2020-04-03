@@ -10,7 +10,6 @@ import DialogContent from "@material-ui/core/DialogContent";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import AccountCircleOutlined from "@material-ui/icons/AccountCircleOutlined";
 import LockOutlined from "@material-ui/icons/LockOutlined";
@@ -70,10 +69,7 @@ class AddEmployeeButton extends Component {
   };
 
   render() {
-    const {
-      classes,
-      UI: { loading }
-    } = this.props;
+    const { classes } = this.props;
     const { errors } = this.state;
 
     return (

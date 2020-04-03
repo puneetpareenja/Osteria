@@ -17,7 +17,6 @@ import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import AuthRoute from "./util/AuthRoute";
 import CheckAuthRoute from "./util/CheckAuthRoute";
 import Navbar from "./components/Navbar";
-import Bot from "./components/Bot";
 
 // Pages
 import Index from "./pages/Index";
@@ -28,7 +27,6 @@ import ForgotPassword from "./pages/ForgotPassword";
 import axios from "axios";
 import { Container } from "@material-ui/core";
 import Profile from "./pages/Profile";
-import { store2 } from "./redux/chat";
 
 //TODO: Implement theme colors
 const theme = createMuiTheme(themeFile);
@@ -55,7 +53,7 @@ class App extends Component {
           <Container>
             <Router>
               <Switch>
-                <Route exact path="/" component={Index}/>
+                <Route exact path="/" component={Index} />
                 <AuthRoute exact path="/login" component={Login} />
                 <AuthRoute exact path="/signup" component={SignUp} />
                 <CheckAuthRoute exact path="/home" component={Home} />
@@ -65,9 +63,6 @@ class App extends Component {
                   component={ForgotPassword}
                 />
                 <CheckAuthRoute exact path="/profile" component={Profile} />
-                <Provider store={store2}>
-                  <Route exact path="/bot" component={Bot} />
-                </Provider>
               </Switch>
             </Router>
           </Container>

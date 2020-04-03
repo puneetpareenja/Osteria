@@ -4,11 +4,12 @@ import { sendMessage } from "../redux/chat";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { ChatFeed, Message } from "react-chat-ui";
 import TextField from "@material-ui/core/TextField";
+import { Box } from "@material-ui/core";
 
 const styles = theme => ({
   chat: {
-    height: 400,
-    flex: 1
+    height: 600,
+    marginBottom: theme.spacing(2)
   },
   bottom: {
     position: "absolute",
@@ -38,14 +39,12 @@ class Bot extends Component {
     console.log(messageArray);
     return (
       <div>
-        <ChatFeed
-          messages={messageArray}
-          maxHeight={400}
-          className={classes.chat}
-        />
+        <Box className={classes.chat}>
+          <ChatFeed messages={messageArray} maxHeight={600} />
+        </Box>
 
         <TextField
-          className={classes.bottom}
+          fullWidth
           placeholder="Type a message..."
           type="text"
           onKeyDown={this.handleKeyDown}

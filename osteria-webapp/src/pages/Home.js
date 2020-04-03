@@ -8,7 +8,7 @@ import { withStyles } from "@material-ui/core/styles";
 import ItemSekeleton from "../components/ItemSkeleton";
 
 import Item from "../components/Item";
-import { connect } from "react-redux";
+import { connect, Provider } from "react-redux";
 import PropTypes from "prop-types";
 import { getItems, addItem } from "../redux/actions/dataActions";
 import { getEmployees } from "../redux/actions/userActions";
@@ -18,6 +18,9 @@ import Tab from "@material-ui/core/Tab";
 import AddItemButton from "../components/AddItemButton";
 import AddEmployeeButton from "../components/AddEmployeeButton";
 import EmployeeTable from "../components/EmployeeTable";
+
+import { store2 } from "../redux/chat";
+import Bot from "../components/Bot";
 
 const styles = theme => ({
   fab: {
@@ -72,27 +75,46 @@ class Home extends Component {
     );
     return (
       <div>
-        <Tabs
-          value={this.state.tabValue}
-          onChange={this.handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          centered
-        >
-          <Tab label="Items" />
-          <Tab label="Employees" />
-        </Tabs>
-        {this.state.tabValue === 0 ? (
+        {type === "admin" ? (
           <div>
-            <AddItemButton className={classes.fab} />
-            <Grid container spacing={2} className={classes.itemContainer}>
-              {itemsMarkup}
-            </Grid>
+            <Tabs
+              value={this.state.tabValue}
+              onChange={this.handleChange}
+              indicatorColor="primary"
+              textColor="primary"
+              centered
+            >
+              <Tab label="Items" />
+              <Tab label="Employees" />
+            </Tabs>
+            {this.state.tabValue === 0 ? (
+              <div>
+                <AddItemButton className={classes.fab} />
+                <Grid container spacing={2} className={classes.itemContainer}>
+                  {itemsMarkup}
+                </Grid>
+              </div>
+            ) : (
+              <div>
+                <AddEmployeeButton className={classes.fab} />
+                <EmployeeTable />
+              </div>
+            )}{" "}
           </div>
         ) : (
           <div>
-            <AddEmployeeButton className={classes.fab} />
-            <EmployeeTable />
+            <Grid container spacing={2}>
+              <Grid item xs={false} sm={6}>
+                <Grid container spacing={2} className={classes.itemContainer}>
+                  {itemsMarkup}
+                </Grid>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Provider store={store2}>
+                  <Bot />
+                </Provider>
+              </Grid>
+            </Grid>
           </div>
         )}
       </div>
