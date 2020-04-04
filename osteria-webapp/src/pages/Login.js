@@ -7,7 +7,6 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
 import Paper from "@material-ui/core/Paper";
-import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
@@ -32,14 +31,14 @@ const styles = {
   root: {
     height: "85vh",
     margin: "auto",
-    marginTop: "10vh"
+    marginTop: "10vh",
   },
   image: {
     // background: `url(${login})`,
     background: `url(${login2})`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "contain",
-    backgroundPosition: "center"
+    backgroundPosition: "center",
   },
   paper: {
     display: "flex",
@@ -47,14 +46,14 @@ const styles = {
     alignItems: "center",
     marginTop: 80,
     marginRight: 100,
-    marginLeft: 100
+    marginLeft: 100,
   },
   form: {
-    marginTop: 20
+    marginTop: 20,
   },
   submit: {
     marginTop: 10,
-    marginBottom: 10
+    marginBottom: 10,
   },
   buttonProgress: {
     color: green[500],
@@ -62,8 +61,8 @@ const styles = {
     top: "50%",
     left: "50%",
     marginTop: -12,
-    marginLeft: -12
-  }
+    marginLeft: -12,
+  },
 };
 class Login extends Component {
   constructor() {
@@ -71,7 +70,7 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      errors: {}
+      errors: {},
     };
   }
 
@@ -81,24 +80,24 @@ class Login extends Component {
     }
   }
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
     const userData = {
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
     };
     this.props.loginUser(userData, this.props.history);
   };
 
-  handleChange = event => {
+  handleChange = (event) => {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     });
   };
   render() {
     const {
       classes,
-      UI: { loading }
+      UI: { loading },
     } = this.props;
     const { errors } = this.state;
 
@@ -146,7 +145,7 @@ class Login extends Component {
                       <InputAdornment position="start">
                         <EmailOutlined />
                       </InputAdornment>
-                    )
+                    ),
                   }}
                 />
                 <TextField
@@ -167,7 +166,7 @@ class Login extends Component {
                       <InputAdornment position="start">
                         <LockOutlined />
                       </InputAdornment>
-                    )
+                    ),
                   }}
                 />
                 <Button
@@ -196,13 +195,13 @@ class Login extends Component {
                     </Link>
                   </Grid>
                 </Grid>
-                <Box mt={5}>
+                {/* <Box mt={5}>
                   <Link href="/signup">
                     <Typography align="center">
                       Don't have an account? Sign Up
                     </Typography>
                   </Link>
-                </Box>
+                </Box> */}
                 <Copyright />
               </form>
             </div>
@@ -217,16 +216,16 @@ Login.propTypes = {
   classes: PropTypes.object.isRequired,
   loginUser: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
-  UI: PropTypes.object.isRequired
+  UI: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   user: state.user,
-  UI: state.UI
+  UI: state.UI,
 });
 
 const mapActionsToProps = {
-  loginUser
+  loginUser,
 };
 
 export default connect(

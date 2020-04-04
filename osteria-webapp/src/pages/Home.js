@@ -8,7 +8,7 @@ import { withStyles } from "@material-ui/core/styles";
 import ItemSekeleton from "../components/ItemSkeleton";
 
 import Item from "../components/Item";
-import { connect, Provider } from "react-redux";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getItems, addItem } from "../redux/actions/dataActions";
 import { getEmployees } from "../redux/actions/userActions";
@@ -19,25 +19,22 @@ import AddItemButton from "../components/AddItemButton";
 import AddEmployeeButton from "../components/AddEmployeeButton";
 import EmployeeTable from "../components/EmployeeTable";
 
-import { store2 } from "../redux/chat";
-import Bot from "../components/Bot";
-
-const styles = theme => ({
+const styles = (theme) => ({
   fab: {
     position: "fixed",
     bottom: theme.spacing(2),
-    right: theme.spacing(2)
+    right: theme.spacing(2),
   },
   itemContainer: {
-    padding: theme.spacing(2)
-  }
+    padding: theme.spacing(2),
+  },
 });
 
 class Home extends Component {
   state = {
     items: null,
     open: false,
-    tabValue: 0
+    tabValue: 0,
   };
   componentDidMount() {
     this.props.getItems();
@@ -52,11 +49,13 @@ class Home extends Component {
     const {
       data: { items, loading },
       credentials: { type },
-      classes
+      classes,
     } = this.props;
 
     let itemsMarkup = !loading ? (
-      items.map(item => <Item key={item.itemId} item={item} userType={type} />)
+      items.map((item) => (
+        <Item key={item.itemId} item={item} userType={type} />
+      ))
     ) : (
       <Fragment>
         <Grid item xs>
@@ -101,37 +100,22 @@ class Home extends Component {
               </div>
             )}{" "}
           </div>
-        ) : (
-          <div>
-            <Grid container spacing={2}>
-              <Grid item xs={false} sm={6}>
-                <Grid container spacing={2} className={classes.itemContainer}>
-                  {itemsMarkup}
-                </Grid>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Provider store={store2}>
-                  <Bot />
-                </Provider>
-              </Grid>
-            </Grid>
-          </div>
-        )}
+        ) : null}
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   data: state.data,
-  credentials: state.user.credentials
+  credentials: state.user.credentials,
 });
 
 Home.propTypes = {
   getItems: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
-  credentials: PropTypes.object.isRequired
+  credentials: PropTypes.object.isRequired,
 };
 
 export default connect(mapStateToProps, { getItems, addItem, getEmployees })(

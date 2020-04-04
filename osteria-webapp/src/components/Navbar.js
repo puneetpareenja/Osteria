@@ -16,33 +16,33 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { logoutUser } from "../redux/actions/userActions";
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     flexGrow: 1,
-    marginBottom: 64
+    marginBottom: 64,
   },
   title: {
-    marginLeft: 10
+    marginLeft: 10,
   },
   space: {
     flexGrow: 1,
-    margin: 10
+    margin: 10,
   },
   button: {
     width: 100,
-    margin: 5
+    margin: 5,
   },
   appBar: {
-    zIndex: theme.zIndex.drawer + 1
-  }
+    zIndex: theme.zIndex.drawer + 1,
+  },
 });
 
 class Navbar extends Component {
   state = {
-    anchorEl: null
+    anchorEl: null,
   };
 
-  handleClick = event => {
+  handleClick = (event) => {
     this.setState({ anchorEl: event.currentTarget });
   };
 
@@ -61,8 +61,8 @@ class Navbar extends Component {
 
       user: {
         credentials: { imageUrl },
-        authenticated
-      }
+        authenticated,
+      },
     } = this.props;
     const { anchorEl } = this.state;
 
@@ -112,29 +112,29 @@ class Navbar extends Component {
                   </MenuItem>
                 </Menu>
               </div>
-            ) : (
-              // Unauthenticated
-              <div>
-                <Button color="inherit" href="/" className={classes.button}>
-                  Home
-                </Button>
-                <Button
-                  color="inherit"
-                  href="/signup"
-                  className={classes.button}
-                >
-                  SignUp
-                </Button>
-                <Button
-                  color="primary"
-                  variant="contained"
-                  href="/login"
-                  className={classes.button}
-                >
-                  Login
-                </Button>
-              </div>
-            )}
+            ) : null
+            // Unauthenticated
+            // <div>
+            //   <Button color="inherit" href="/" className={classes.button}>
+            //     Home
+            //   </Button>
+            //   {/* <Button
+            //     color="inherit"
+            //     href="/signup"
+            //     className={classes.button}
+            //   >
+            //     SignUp
+            //   </Button> */}
+            //   <Button
+            //     color="primary"
+            //     variant="contained"
+            //     href="/login"
+            //     className={classes.button}
+            //   >
+            //     Login
+            //   </Button>
+            // </div>
+            }
           </Toolbar>
         </AppBar>
       </div>
@@ -142,15 +142,15 @@ class Navbar extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  user: state.user
+const mapStateToProps = (state) => ({
+  user: state.user,
 });
 
 const mapActionToProps = { logoutUser };
 
 Navbar.propTypes = {
   user: PropTypes.object.isRequired,
-  logoutUser: PropTypes.func.isRequired
+  logoutUser: PropTypes.func.isRequired,
 };
 
 export default connect(

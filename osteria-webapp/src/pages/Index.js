@@ -6,74 +6,102 @@ import Navbar from "../components/Navbar";
 // Material UI
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid";
-import CssBaseline from "@material-ui/core/CssBaseline";
-// import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-// import Container from "@material-ui/core/Container";
 
 // Images
 import dineImage from "../images/dine.svg";
 import chatbotImage from "../images/chatbot.svg";
-import { Container } from "@material-ui/core";
+import { connect, Provider } from "react-redux";
+import Item from "../components/Item";
+import ItemSekeleton from "../components/ItemSkeleton";
+import { store2 } from "../redux/chat";
+import Bot from "../components/Bot";
+import { getItems } from "../redux/actions/dataActions";
 
-const styles = {
+const styles = (theme) => ({
   frame: {
     height: "100vh",
     margin: "auto",
-    backgroundColor: "linear-gradient(to right, #fceabb, #f8b500)"
+    backgroundColor: "linear-gradient(to right, #fceabb, #f8b500)",
   },
   image: {
     background: `url(${dineImage})`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "contain",
-    backgroundPosition: "center"
+    backgroundPosition: "center",
   },
   image2: {
     background: `url(${chatbotImage})`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "contain",
-    backgroundPosition: "center"
+    backgroundPosition: "center",
   },
   data: {
     padding: 80,
-    paddingTop: "25%"
-  }
-};
+    paddingTop: "25%",
+  },
+  itemContainer: {
+    padding: theme.spacing(2),
+  },
+});
 
 export class Index extends Component {
+  componentDidMount() {
+    this.props.getItems();
+  }
+
   render() {
-    const { classes } = this.props;
+    const {
+      data: { items, loading },
+      classes,
+    } = this.props;
+
+    let itemsMarkup = !loading ? (
+      items.map((item) => (
+        <Item key={item.itemId} item={item} userType="customer" />
+      ))
+    ) : (
+      <Fragment>
+        <Grid item xs>
+          <ItemSekeleton />
+        </Grid>
+        <Grid item xs>
+          <ItemSekeleton />
+        </Grid>
+        <Grid item xs>
+          <ItemSekeleton />
+        </Grid>
+        <Grid item xs>
+          <ItemSekeleton />
+        </Grid>
+      </Fragment>
+    );
 
     return (
       <Fragment>
         <Navbar />
-        <Container>
-          <Grid container component="main" className={classes.frame}>
-            <CssBaseline />
-            <Grid item xs={false} sm={6} md={6} className={classes.image} />
-            <Grid item xs={12} sm={6} md={6} className={classes.data}>
-              <Typography variant="h5">
-                Osteria is an app that enables a restaurant to receive orders
-                via voice interface and interacts on behalf of the restaurants
-                with its customers to take orders
-              </Typography>
+        <div>
+          <Grid container spacing={2}>
+            <Grid item xs={false} sm={7}>
+              <Grid container spacing={2} className={classes.itemContainer}>
+                {itemsMarkup}
+              </Grid>
+            </Grid>
+            <Grid item xs={12} sm={5}>
+              <Provider store={store2}>
+                <Bot />
+              </Provider>
             </Grid>
           </Grid>
-          <Grid container component="main" className={classes.frame}>
-            <CssBaseline />
-            <Grid item xs={12} sm={6} md={6} className={classes.data}>
-              <Typography variant="h5">
-                Osteria is an app that enables a restaurant to receive orders
-                via voice interface and interacts on behalf of the restaurants
-                with its customers to take orders
-              </Typography>
-            </Grid>
-            <Grid item xs={false} sm={6} md={6} className={classes.image2} />
-          </Grid>
-        </Container>
+        </div>
       </Fragment>
     );
   }
 }
 
-export default withStyles(styles)(Index);
+const mapStateToProps = (state) => ({
+  data: state.data,
+});
+
+export default connect(mapStateToProps, { getItems })(
+  withStyles(styles)(Index)
+);
