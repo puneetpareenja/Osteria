@@ -47,6 +47,8 @@ const styles = (theme) => ({
 export class Index extends Component {
   componentDidMount() {
     this.props.getItems();
+    const { handle } = this.props.match.params;
+    console.log(handle);
   }
 
   render() {
@@ -54,6 +56,8 @@ export class Index extends Component {
       data: { items, loading },
       classes,
     } = this.props;
+    const { handle } = this.props.match.params;
+    console.log(handle);
 
     let itemsMarkup = !loading ? (
       items.map((item) => (
@@ -88,7 +92,7 @@ export class Index extends Component {
             </Grid>
             <Grid item xs={12} sm={5}>
               <Provider store={store2}>
-                <Bot />
+                <Bot handle={handle} />
               </Provider>
             </Grid>
           </Grid>

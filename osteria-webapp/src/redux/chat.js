@@ -8,10 +8,10 @@ const ON_MESSAGE = "ON_MESSAGE";
 
 export const sendMessage = (text, id = 0) => ({
   type: ON_MESSAGE,
-  payload: { text, id }
+  payload: { text, id },
 });
 
-const messageMiddleware = () => next => action => {
+const messageMiddleware = () => (next) => (action) => {
   next(action);
   if (action.type === ON_MESSAGE) {
     const { text } = action.payload;
@@ -20,17 +20,17 @@ const messageMiddleware = () => next => action => {
     function onSuccess(response) {
       console.log(response);
       const {
-        result: { fulfillment }
+        result: { fulfillment },
       } = response;
 
-      fulfillment.messages.forEach(element => {
+      fulfillment.messages.forEach((element) => {
         next(sendMessage(element.speech, 1));
       });
     }
   }
 };
 
-const initState = [{ text: "Say Hi", id: 1 }];
+const initState = [];
 const messageReducer = (state = initState, action) => {
   switch (action.type) {
     case ON_MESSAGE:

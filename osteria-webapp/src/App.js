@@ -53,15 +53,15 @@ class App extends Component {
           <Container>
             <Router>
               <Switch>
-                <Route exact path="/" component={Index} />
+                <Route exact path="/welcome/:handle" component={Index} />
                 <AuthRoute exact path="/login" component={Login} />
-                <AuthRoute exact path="/signup" component={SignUp} />
+                {/* <AuthRoute exact path="/signup" component={SignUp} /> */}
                 <CheckAuthRoute exact path="/home" component={Home} />
-                <AuthRoute
+                {/* <AuthRoute
                   exact
                   path="/forgotpassword"
                   component={ForgotPassword}
-                />
+                /> */}
                 <CheckAuthRoute exact path="/profile" component={Profile} />
               </Switch>
             </Router>

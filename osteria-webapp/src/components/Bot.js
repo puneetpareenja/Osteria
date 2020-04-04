@@ -6,20 +6,23 @@ import { ChatFeed, Message } from "react-chat-ui";
 import TextField from "@material-ui/core/TextField";
 import { Box } from "@material-ui/core";
 
-const styles = theme => ({
+const styles = (theme) => ({
   chat: {
     height: 600,
-    marginBottom: theme.spacing(2)
+    marginBottom: theme.spacing(2),
   },
   bottom: {
     position: "absolute",
     top: 480,
-    width: "80vw"
-  }
+    width: "80vw",
+  },
 });
 
 class Bot extends Component {
-  handleKeyDown = event => {
+  componentDidMount() {
+    this.props.sendMessage(`Table number ${this.props.handle}`);
+  }
+  handleKeyDown = (event) => {
     const { sendMessage } = this.props;
     // this.setState({ open: true });
     if (event.keyCode === 13) {
@@ -31,11 +34,16 @@ class Bot extends Component {
   render() {
     const { feed, classes } = this.props;
     const messageArray = [];
-    console.log(feed);
-    feed.forEach(element => {
+
+    for (let i = 0; i < feed.length; i++) {
+      const element = feed[i];
       let message = new Message({ id: element.id, message: element.text });
       messageArray.push(message);
-    });
+    }
+    // feed.forEach((element) => {
+    //   let message = new Message({ id: element.id, message: element.text });
+    //   messageArray.push(message);
+    // });
     console.log(messageArray);
     return (
       <div>
@@ -54,8 +62,8 @@ class Bot extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  feed: state
+const mapStateToProps = (state) => ({
+  feed: state,
 });
 
 export default connect(mapStateToProps, { sendMessage })(
