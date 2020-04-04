@@ -41,6 +41,7 @@ class Home extends Component {
     open: false,
     tabValue: 0,
     tables: "",
+    // website: "",
   };
   componentDidMount() {
     this.props.getItems();
@@ -64,8 +65,10 @@ class Home extends Component {
     } = this.props;
 
     let QRMarkUp = [];
+    let url = window.location.href;
+    url = url.substr(0, url.length - 5);
     for (let i = 1; i <= this.state.tables; i++) {
-      let qrvalue = "http://localhost:3000/welcome/" + i;
+      let qrvalue = url + "/welcome/" + i;
       console.log(qrvalue);
       QRMarkUp.push(
         <div key={i}>
