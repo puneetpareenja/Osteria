@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import QRCode from "qrcode.react";
 
 // Material UI
 import Grid from "@material-ui/core/Grid";
@@ -18,6 +19,7 @@ import Tab from "@material-ui/core/Tab";
 import AddItemButton from "../components/AddItemButton";
 import AddEmployeeButton from "../components/AddEmployeeButton";
 import EmployeeTable from "../components/EmployeeTable";
+import { TextField, Button, Typography } from "@material-ui/core";
 
 const styles = (theme) => ({
   fab: {
@@ -28,6 +30,9 @@ const styles = (theme) => ({
   itemContainer: {
     padding: theme.spacing(2),
   },
+  qr: {
+    margin: theme.spacing(2),
+  },
 });
 
 class Home extends Component {
@@ -35,6 +40,7 @@ class Home extends Component {
     items: null,
     open: false,
     tabValue: 0,
+    tables: "",
   };
   componentDidMount() {
     this.props.getItems();
@@ -44,6 +50,11 @@ class Home extends Component {
   handleChange = (event, newValue) => {
     this.setState({ tabValue: newValue });
   };
+  handleQRChange = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  };
 
   render() {
     const {
@@ -51,6 +62,18 @@ class Home extends Component {
       credentials: { type },
       classes,
     } = this.props;
+
+    let QRMarkUp = [];
+    for (let i = 1; i <= this.state.tables; i++) {
+      let qrvalue = "http://localhost:3000/welcome/" + i;
+      console.log(qrvalue);
+      QRMarkUp.push(
+        <div key={i}>
+          <QRCode value={qrvalue} className={classes.qr} />
+          <Typography align="center">Table Number {i}</Typography>
+        </div>
+      );
+    }
 
     let itemsMarkup = !loading ? (
       items.map((item) => (
@@ -85,6 +108,7 @@ class Home extends Component {
             >
               <Tab label="Items" />
               <Tab label="Employees" />
+              <Tab label="QR Code" />
             </Tabs>
             {this.state.tabValue === 0 ? (
               <div>
@@ -93,12 +117,26 @@ class Home extends Component {
                   {itemsMarkup}
                 </Grid>
               </div>
-            ) : (
+            ) : this.state.tabValue === 1 ? (
               <div>
                 <AddEmployeeButton className={classes.fab} />
                 <EmployeeTable />
               </div>
-            )}{" "}
+            ) : (
+              <div>
+                <TextField
+                  margin="normal"
+                  id="tables"
+                  name="tables"
+                  label="Number of Tables"
+                  type="number"
+                  value={this.state.tables}
+                  onChange={this.handleQRChange}
+                />
+                <br />
+                <Grid container>{QRMarkUp}</Grid>
+              </div>
+            )}
           </div>
         ) : null}
       </div>
