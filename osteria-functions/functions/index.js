@@ -1,5 +1,6 @@
 const functions = require("firebase-functions");
 const app = require("express")();
+const { db, admin } = require("./util/admin");
 
 const {
   signup,
@@ -8,7 +9,7 @@ const {
   getAuthenticatedUser,
   getAllUsers,
   setActive,
-  setInactive
+  setInactive,
 } = require("./handlers/users");
 
 const {
@@ -19,10 +20,11 @@ const {
   uploadItemImage,
   special,
   regular,
-  getSpecials
+  getSpecials,
+  getItemPriceByName,
 } = require("./handlers/items");
 
-const { getAllOrders } = require("./handlers/orders");
+const { getAllOrders, completeOrder, getOrder } = require("./handlers/orders");
 
 const { fbAuth } = require("./util/fbAuth");
 
@@ -44,9 +46,23 @@ app.post("/item/image/:itemId", fbAuth, uploadItemImage);
 app.get("/item/:itemId/special", fbAuth, special);
 app.get("/item/:itemId/regular", fbAuth, regular);
 app.get("/specials", getSpecials);
+app.get("/item/price/:name", getItemPriceByName);
 
 // Order Routes
 app.get("/orders", getAllOrders);
+app.get("/order/complete/:orderId", completeOrder);
+app.get("/order/:orderId", getOrder);
 
 // Exporting the API
 exports.api = functions.https.onRequest(app);
+
+//Triggers
+exports.updateOrderStatusOnCreate = functions.firestore
+  .document("orders/{id}")
+  .onCreate((snapshot) => {
+    console.log(`/orders/${snapshot.id}`);
+    return db
+      .doc(`/orders/${snapshot.id}`)
+      .update({ complete: false })
+      .catch((err) => console.error(err));
+  });

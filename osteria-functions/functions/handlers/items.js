@@ -6,9 +6,9 @@ exports.getAllItems = (request, response) => {
   db.collection("items")
     .orderBy("category")
     .get()
-    .then(data => {
+    .then((data) => {
       let items = [];
-      data.forEach(doc => {
+      data.forEach((doc) => {
         items.push({
           itemId: doc.id,
           name: doc.data().name,
@@ -16,12 +16,12 @@ exports.getAllItems = (request, response) => {
           price: doc.data().price,
           category: doc.data().category,
           imageUrl: doc.data().imageUrl,
-          special: doc.data().special
+          special: doc.data().special,
         });
       });
       return response.json(items);
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
     });
 };
@@ -36,18 +36,18 @@ exports.addItem = (request, response) => {
     price: request.body.price,
     category: request.body.category,
     imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/items%2F${noImage}?alt=media`,
-    special: false
+    special: false,
   };
 
   db.collection("items")
     .add(newItem)
-    .then(doc => {
+    .then((doc) => {
       response.json({
         id: doc.id,
-        ...newItem
+        ...newItem,
       });
     })
-    .catch(error => {
+    .catch((error) => {
       response.status(500).json({ message: `something went wrong` });
       console.log(error);
     });
@@ -57,7 +57,7 @@ exports.addItem = (request, response) => {
 exports.getItem = (req, res) => {
   db.doc(`/items/${req.params.itemId}`)
     .get()
-    .then(doc => {
+    .then((doc) => {
       if (!doc.exists) {
         return res.status(404).json({ error: "Item not found" });
       }
@@ -65,7 +65,7 @@ exports.getItem = (req, res) => {
       itemData.itemId = doc.id;
       return res.json(itemData);
     })
-    .catch(err => {
+    .catch((err) => {
       console.error(err);
       res.status(500).json({ error: err.code });
     });
@@ -76,7 +76,7 @@ exports.deleteItem = (req, res) => {
   const document = db.doc(`/items/${req.params.itemId}`);
   document
     .get()
-    .then(doc => {
+    .then((doc) => {
       if (!doc.exists) {
         return res.status(404).json({ error: "Item not found" });
       } else {
@@ -86,7 +86,7 @@ exports.deleteItem = (req, res) => {
     .then(() => {
       res.json({ message: "Item deleted successfully" });
     })
-    .catch(err => {
+    .catch((err) => {
       console.error(err);
       return res.status(500).json({ error: err.code });
     });
@@ -126,9 +126,9 @@ exports.uploadItemImage = (request, response) => {
         resumable: false,
         metadata: {
           metadata: {
-            contentType: imageToBeUploaded.mimetype
-          }
-        }
+            contentType: imageToBeUploaded.mimetype,
+          },
+        },
       })
       .then(() => {
         const imageUrl = `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/items%2F${imageFileName}?alt=media`;
@@ -137,7 +137,7 @@ exports.uploadItemImage = (request, response) => {
       .then(() => {
         return response.json({ message: "Image Uploaded successfully" });
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
         return response.status(500).json({ error: err.code });
       });
@@ -155,7 +155,7 @@ exports.special = (request, response) => {
     .then(() => {
       return response.json({ message: "Item added to Specials" });
     })
-    .catch(err => {
+    .catch((err) => {
       console.error(err);
       return response.status(500).json({ error: err.code });
     });
@@ -170,7 +170,7 @@ exports.regular = (request, response) => {
     .then(() => {
       return response.json({ message: "Item removed from Specials" });
     })
-    .catch(err => {
+    .catch((err) => {
       console.error(err);
       return response.status(500).json({ error: err.code });
     });
@@ -180,9 +180,9 @@ exports.getSpecials = (request, response) => {
   db.collection("items")
     .where("special", "==", true)
     .get()
-    .then(data => {
+    .then((data) => {
       let items = [];
-      data.forEach(doc => {
+      data.forEach((doc) => {
         items.push({
           itemId: doc.id,
           name: doc.data().name,
@@ -190,12 +190,28 @@ exports.getSpecials = (request, response) => {
           price: doc.data().price,
           category: doc.data().category,
           imageUrl: doc.data().imageUrl,
-          special: doc.data().special
+          special: doc.data().special,
         });
       });
       return response.json(items);
     })
-    .catch(err => {
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+exports.getItemPriceByName = (request, response) => {
+  const name = request.params.name;
+  db.collection("items")
+    .where("name", "==", name)
+    .get()
+    .then((data) => {
+      let price = 0;
+      data.forEach((doc) => {
+        return response.json({ price: doc.data().price });
+      });
+    })
+    .catch((err) => {
       console.log(err);
     });
 };
