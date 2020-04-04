@@ -22,6 +22,8 @@ const {
   getSpecials
 } = require("./handlers/items");
 
+const { getAllOrders } = require("./handlers/orders");
+
 const { fbAuth } = require("./util/fbAuth");
 
 // User Routes
@@ -42,6 +44,9 @@ app.post("/item/image/:itemId", fbAuth, uploadItemImage);
 app.get("/item/:itemId/special", fbAuth, special);
 app.get("/item/:itemId/regular", fbAuth, regular);
 app.get("/specials", getSpecials);
+
+// Order Routes
+app.get("/orders", getAllOrders);
 
 // Exporting the API
 exports.api = functions.https.onRequest(app);
