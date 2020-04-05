@@ -22,3 +22,8 @@ export const SET_SPECIAL = "SET_SPECIAL";
 export const SET_REGULAR = "SET_REGULAR";
 export const DELETE_ITEM = "DELETE_ITEM";
 export const ADD_ITEM = "ADD_ITEM";
+
+// Order Reducer Types
+export const SET_ORDERS = "SET_ORDERS";
+export const COMPLETE_ORDER = "COMPLETE_ORDER";
+export const SET_ORDER = "SET_ORDER";

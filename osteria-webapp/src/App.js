@@ -21,9 +21,7 @@ import Navbar from "./components/Navbar";
 // Pages
 import Index from "./pages/Index";
 import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
-import ForgotPassword from "./pages/ForgotPassword";
 import axios from "axios";
 import { Container } from "@material-ui/core";
 import Profile from "./pages/Profile";
@@ -55,13 +53,7 @@ class App extends Component {
               <Switch>
                 <Route exact path="/welcome/:handle" component={Index} />
                 <AuthRoute exact path="/login" component={Login} />
-                {/* <AuthRoute exact path="/signup" component={SignUp} /> */}
                 <CheckAuthRoute exact path="/home" component={Home} />
-                {/* <AuthRoute
-                  exact
-                  path="/forgotpassword"
-                  component={ForgotPassword}
-                /> */}
                 <CheckAuthRoute exact path="/profile" component={Profile} />
               </Switch>
             </Router>

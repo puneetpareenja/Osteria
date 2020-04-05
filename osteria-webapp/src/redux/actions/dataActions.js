@@ -9,95 +9,96 @@ import {
   CLEAR_ERRORS,
   LOADING_UI,
   SET_ITEM,
-  STOP_LOADING_UI
+  STOP_LOADING_UI,
 } from "../types";
 import axios from "axios";
 
-export const getItems = () => dispatch => {
+export const getItems = () => (dispatch) => {
   dispatch({ type: LOADING_DATA });
   axios
     .get("/items")
-    .then(res => {
+    .then((res) => {
       dispatch({
         type: SET_ITEMS,
-        payload: res.data
+        payload: res.data,
       });
     })
-    .catch(err => {
+    .catch((err) => {
+      console.log(err);
       dispatch({
         type: SET_ITEMS,
-        payload: []
+        payload: [],
       });
     });
 };
 
-export const getItem = itemId => dispatch => {
+export const getItem = (itemId) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios
     .get(`/item/${itemId}`)
-    .then(res => {
+    .then((res) => {
       dispatch({
         type: SET_ITEM,
-        payload: res.data
+        payload: res.data,
       });
       dispatch({ type: STOP_LOADING_UI });
     })
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
 };
 
-export const addItem = newItem => dispatch => {
+export const addItem = (newItem) => (dispatch) => {
   axios
     .post("/addItem", newItem)
-    .then(res => {
+    .then((res) => {
       dispatch({
         type: ADD_ITEM,
         payload: {
           itemId: res.data.id,
-          ...res.data
-        }
+          ...res.data,
+        },
       });
     })
-    .catch(err => {
+    .catch((err) => {
       dispatch({
         type: SET_ERRORS,
-        payload: err.response.data
+        payload: err.response.data,
       });
     });
 };
 
-export const setSpecial = itemId => dispatch => {
+export const setSpecial = (itemId) => (dispatch) => {
   axios
     .get(`/item/${itemId}/special`)
-    .then(res => {
+    .then((res) => {
       dispatch({
         type: SET_SPECIAL,
-        payload: itemId
+        payload: itemId,
       });
     })
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
 };
 
-export const setRegular = itemId => dispatch => {
+export const setRegular = (itemId) => (dispatch) => {
   axios
     .get(`/item/${itemId}/regular`)
-    .then(res => {
+    .then((res) => {
       dispatch({
         type: SET_REGULAR,
-        payload: itemId
+        payload: itemId,
       });
     })
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
 };
 
-export const deleteItem = itemId => dispatch => {
+export const deleteItem = (itemId) => (dispatch) => {
   axios
     .delete(`/item/${itemId}`)
     .then(() => {
       dispatch({ type: DELETE_ITEM, payload: itemId });
     })
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
 };
 
-export const clearErrors = () => dispatch => {
+export const clearErrors = () => (dispatch) => {
   dispatch({ type: CLEAR_ERRORS });
 };

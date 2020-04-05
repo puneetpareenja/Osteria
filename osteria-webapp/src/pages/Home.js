@@ -19,7 +19,9 @@ import Tab from "@material-ui/core/Tab";
 import AddItemButton from "../components/AddItemButton";
 import AddEmployeeButton from "../components/AddEmployeeButton";
 import EmployeeTable from "../components/EmployeeTable";
-import { TextField, Button, Typography } from "@material-ui/core";
+import { TextField, Typography } from "@material-ui/core";
+import InvoiceTabView from "../components/InvoiceTabView";
+import ChefView from "../components/ChefView";
 
 const styles = (theme) => ({
   fab: {
@@ -111,6 +113,7 @@ class Home extends Component {
             >
               <Tab label="Items" />
               <Tab label="Employees" />
+              <Tab label="Invoices" />
               <Tab label="QR Code" />
             </Tabs>
             {this.state.tabValue === 0 ? (
@@ -125,6 +128,8 @@ class Home extends Component {
                 <AddEmployeeButton className={classes.fab} />
                 <EmployeeTable />
               </div>
+            ) : this.state.tabValue === 2 ? (
+              <InvoiceTabView />
             ) : (
               <div>
                 <TextField
@@ -141,7 +146,9 @@ class Home extends Component {
               </div>
             )}
           </div>
-        ) : null}
+        ) : (
+          <ChefView />
+        )}
       </div>
     );
   }

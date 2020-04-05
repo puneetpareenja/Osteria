@@ -63,6 +63,6 @@ exports.updateOrderStatusOnCreate = functions.firestore
     console.log(`/orders/${snapshot.id}`);
     return db
       .doc(`/orders/${snapshot.id}`)
-      .update({ complete: false })
+      .update({ completed: false })
       .catch((err) => console.error(err));
   });
