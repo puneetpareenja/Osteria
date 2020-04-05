@@ -139,7 +139,9 @@ exports.uploadItemImage = (request, response) => {
         return db.doc(`/items/${itemId}`).update({ imageUrl });
       })
       .then(() => {
-        return response.json({ message: "Image Uploaded successfully" });
+        return response.json({
+          imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/items%2F${imageFileName}?alt=media`,
+        });
       })
       .catch((err) => {
         console.error(err);

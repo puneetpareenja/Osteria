@@ -10,6 +10,7 @@ import {
   LOADING_UI,
   SET_ITEM,
   STOP_LOADING_UI,
+  UPLOAD_ITEM_IMAGE,
 } from "../types";
 import axios from "axios";
 
@@ -101,4 +102,18 @@ export const deleteItem = (itemId) => (dispatch) => {
 
 export const clearErrors = () => (dispatch) => {
   dispatch({ type: CLEAR_ERRORS });
+};
+
+export const uploadItemImage = (itemId, formData) => (dispatch) => {
+  axios
+    .post(`/item/image/${itemId}`, formData)
+    .then((res) => {
+      dispatch({
+        type: UPLOAD_ITEM_IMAGE,
+        payload: { itemId, imageUrl: res.imageUrl },
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };

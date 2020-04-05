@@ -9,33 +9,49 @@ import CardActions from "@material-ui/core/CardActions";
 import Typography from "@material-ui/core/Typography";
 import DeleteItemButton from "./DeleteItemButton";
 import SpecialIconButton from "./SpecialItemButton";
+import IconButton from "@material-ui/core/IconButton";
+import UploadIcon from "@material-ui/icons/PublishOutlined";
+import { connect } from "react-redux";
+import { uploadItemImage } from "../redux/actions/dataActions";
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     width: 280,
-    margin: 8
+    margin: 8,
   },
   media: {
-    height: 200
+    height: 200,
   },
   title: {
     fontSize: "1.3rem",
-    fontWeight: "100"
+    fontWeight: "100",
   },
   price: {
     fontSize: "1rem",
-    fontWeight: "800"
+    fontWeight: "800",
   },
   content: {
     padding: theme.spacing(2),
-    height: theme.spacing(14)
+    height: theme.spacing(14),
   },
   actions: {
-    float: "right"
-  }
+    float: "right",
+  },
 });
 
 class Item extends Component {
+  handleImageChange = (event) => {
+    const image = event.target.files[0];
+    const formData = new FormData();
+    formData.append("image", image, image.name);
+    this.props.uploadItemImage(this.props.item.itemId, formData);
+  };
+
+  handleEditPicture = () => {
+    const fileInput = document.getElementById("imageInput");
+    fileInput.click();
+  };
+
   render() {
     const { classes, item, userType } = this.props;
     return (
@@ -57,6 +73,19 @@ class Item extends Component {
         </CardContent>
         {userType === "admin" ? (
           <CardActions className={classes.actions}>
+            <IconButton
+              aria-label="Upload Item Image"
+              onClick={this.handleEditPicture}
+            >
+              <UploadIcon color="primary" />
+            </IconButton>
+            <input
+              align="center"
+              type="file"
+              id="imageInput"
+              onChange={this.handleImageChange}
+              hidden="hidden"
+            />
             <SpecialIconButton itemId={item.itemId} special={item.special} />
             <DeleteItemButton itemId={item.itemId} name={item.name} />
           </CardActions>
@@ -66,4 +95,4 @@ class Item extends Component {
   }
 }
 
-export default withStyles(styles)(Item);
+export default connect(null, { uploadItemImage })(withStyles(styles)(Item));
