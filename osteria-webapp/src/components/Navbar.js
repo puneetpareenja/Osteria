@@ -112,29 +112,21 @@ class Navbar extends Component {
                   </MenuItem>
                 </Menu>
               </div>
-            ) : null
-            // Unauthenticated
-            // <div>
-            //   <Button color="inherit" href="/" className={classes.button}>
-            //     Home
-            //   </Button>
-            //   {/* <Button
-            //     color="inherit"
-            //     href="/signup"
-            //     className={classes.button}
-            //   >
-            //     SignUp
-            //   </Button> */}
-            //   <Button
-            //     color="primary"
-            //     variant="contained"
-            //     href="/login"
-            //     className={classes.button}
-            //   >
-            //     Login
-            //   </Button>
-            // </div>
-            }
+            ) : (
+              <div>
+                <Button color="inherit" href="/" className={classes.button}>
+                  Home
+                </Button>
+                <Button
+                  color="primary"
+                  variant="contained"
+                  href="/login"
+                  className={classes.button}
+                >
+                  Login
+                </Button>
+              </div>
+            )}
           </Toolbar>
         </AppBar>
       </div>

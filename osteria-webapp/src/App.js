@@ -22,9 +22,10 @@ import Navbar from "./components/Navbar";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import Profile from "./pages/Profile";
+import Welcome from "./pages/Welcome";
 import axios from "axios";
 import { Container } from "@material-ui/core";
-import Profile from "./pages/Profile";
 
 //TODO: Implement theme colors
 const theme = createMuiTheme(themeFile);
@@ -51,7 +52,8 @@ class App extends Component {
           <Container>
             <Router>
               <Switch>
-                <Route exact path="/welcome/:handle" component={Index} />
+                <Route exact path="/welcome/:handle" component={Welcome} />
+                <Route exact path="/" component={Index} />
                 <AuthRoute exact path="/login" component={Login} />
                 <CheckAuthRoute exact path="/home" component={Home} />
                 <CheckAuthRoute exact path="/profile" component={Profile} />

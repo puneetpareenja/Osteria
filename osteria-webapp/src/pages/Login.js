@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -25,7 +24,7 @@ import Copyright from "../components/Copyright";
 // Redux
 import { connect } from "react-redux";
 import { loginUser } from "../redux/actions/userActions";
-import { Container } from "@material-ui/core";
+import { Container, Box } from "@material-ui/core";
 
 const styles = {
   root: {
@@ -186,7 +185,7 @@ class Login extends Component {
                   )}
                 </Button>
 
-                <Grid container>
+                {/* <Grid container>
                   <Grid item xs>
                     <Link href="/forgotpassword">
                       <Typography align="right" variant="body2">
@@ -194,7 +193,7 @@ class Login extends Component {
                       </Typography>
                     </Link>
                   </Grid>
-                </Grid>
+                </Grid> */}
                 {/* <Box mt={5}>
                   <Link href="/signup">
                     <Typography align="center">
@@ -202,7 +201,9 @@ class Login extends Component {
                     </Typography>
                   </Link>
                 </Box> */}
-                <Copyright />
+                <Box mt={10}>
+                  <Copyright />
+                </Box>
               </form>
             </div>
           </Grid>

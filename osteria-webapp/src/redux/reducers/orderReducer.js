@@ -1,4 +1,4 @@
-import { SET_ORDERS, COMPLETE_ORDER, SET_ORDER } from "../types";
+import { SET_ORDERS, COMPLETE_ORDER } from "../types";
 
 const initialState = {
   orders: [],

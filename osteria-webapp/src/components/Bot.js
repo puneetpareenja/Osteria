@@ -35,7 +35,7 @@ class Bot extends Component {
     const { feed, classes } = this.props;
     const messageArray = [];
 
-    for (let i = 0; i < feed.length; i++) {
+    for (let i = 1; i < feed.length; i++) {
       const element = feed[i];
       let message = new Message({ id: element.id, message: element.text });
       messageArray.push(message);

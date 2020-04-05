@@ -6,18 +6,17 @@ import Navbar from "../components/Navbar";
 // Material UI
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid";
+import CssBaseline from "@material-ui/core/CssBaseline";
+// import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+// import Container from "@material-ui/core/Container";
 
 // Images
 import dineImage from "../images/dine.svg";
 import chatbotImage from "../images/chatbot.svg";
-import { connect, Provider } from "react-redux";
-import Item from "../components/Item";
-import ItemSekeleton from "../components/ItemSkeleton";
-import { store2 } from "../redux/chat";
-import Bot from "../components/Bot";
-import { getItems } from "../redux/actions/dataActions";
+import { Container } from "@material-ui/core";
 
-const styles = (theme) => ({
+const styles = {
   frame: {
     height: "100vh",
     margin: "auto",
@@ -39,73 +38,31 @@ const styles = (theme) => ({
     padding: 80,
     paddingTop: "25%",
   },
-  itemContainer: {
-    padding: theme.spacing(2),
-  },
-});
+};
 
 export class Index extends Component {
-  componentDidMount() {
-    this.props.getItems();
-    const { handle } = this.props.match.params;
-    console.log(handle);
-  }
-
   render() {
-    const {
-      data: { items, loading },
-      classes,
-    } = this.props;
-    const { handle } = this.props.match.params;
-    console.log(handle);
-
-    let itemsMarkup = !loading ? (
-      items.map((item) => (
-        <Item key={item.itemId} item={item} userType="customer" />
-      ))
-    ) : (
-      <Fragment>
-        <Grid item xs>
-          <ItemSekeleton />
-        </Grid>
-        <Grid item xs>
-          <ItemSekeleton />
-        </Grid>
-        <Grid item xs>
-          <ItemSekeleton />
-        </Grid>
-        <Grid item xs>
-          <ItemSekeleton />
-        </Grid>
-      </Fragment>
-    );
+    const { classes } = this.props;
 
     return (
       <Fragment>
         <Navbar />
-        <div>
-          <Grid container spacing={2}>
-            <Grid item xs={false} sm={7}>
-              <Grid container spacing={2} className={classes.itemContainer}>
-                {itemsMarkup}
-              </Grid>
-            </Grid>
-            <Grid item xs={12} sm={5}>
-              <Provider store={store2}>
-                <Bot handle={handle} />
-              </Provider>
+        <Container>
+          <Grid container component="main" className={classes.frame}>
+            <CssBaseline />
+            <Grid item xs={false} sm={6} md={6} className={classes.image} />
+            <Grid item xs={12} sm={6} md={6} className={classes.data}>
+              <Typography variant="h5">
+                Osteria is an app that enables a restaurant to receive orders
+                via voice interface and interacts on behalf of the restaurants
+                with its customers to take orders
+              </Typography>
             </Grid>
           </Grid>
-        </div>
+        </Container>
       </Fragment>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  data: state.data,
-});
-
-export default connect(mapStateToProps, { getItems })(
-  withStyles(styles)(Index)
-);
+export default withStyles(styles)(Index);
