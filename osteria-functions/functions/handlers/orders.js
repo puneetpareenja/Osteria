@@ -81,10 +81,10 @@ exports.getOrder = (request, response) => {
 
 exports.completeOrder = (request, response) => {
   const orderId = request.params.orderId;
-  const complete = true;
+  const completed = true;
   return db
     .doc(`orders/${orderId}`)
-    .update({ complete })
+    .update({ completed })
     .then(() => {
       return response.json({ message: "Order Completed" });
     })
