@@ -39,15 +39,15 @@ class ChefView extends Component {
       <Grid container className={classes.grid}>
         <Grid item sm={6}>
           <Typography variant="h5" className={classes.grid}>
-            Completed Orders
-          </Typography>
-          {completedOrderMarkUp}
-        </Grid>
-        <Grid item sm={6}>
-          <Typography variant="h5" className={classes.grid}>
             Incomplete Orders
           </Typography>
           {incompleteOrderMarkUp}
+        </Grid>
+        <Grid item sm={6}>
+          <Typography variant="h5" className={classes.grid}>
+            Completed Orders
+          </Typography>
+          {completedOrderMarkUp}
         </Grid>
       </Grid>
     );

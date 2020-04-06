@@ -48,8 +48,8 @@ export class Index extends Component {
             <Grid item xs={12} sm={6} md={6} className={classes.data}>
               <Typography variant="h5">
                 Osteria is an app that enables a restaurant to receive orders
-                via voice interface and interacts on behalf of the restaurants
-                with its customers to take orders
+                and interacts on behalf of the restaurants with its customers to
+                take orders
               </Typography>
             </Grid>
           </Grid>
