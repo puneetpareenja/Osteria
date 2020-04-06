@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addItem, getItems } from "../redux/actions/dataActions";
+import { addItem } from "../redux/actions/dataActions";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import PropTypes from "prop-types";
@@ -12,10 +12,10 @@ import DialogContent from "@material-ui/core/DialogContent";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 
-const styles = theme => ({
+const styles = (theme) => ({
   dialog: {
-    padding: theme.spacing(2)
-  }
+    padding: theme.spacing(2),
+  },
 });
 
 class AddItemButton extends Component {
@@ -26,7 +26,7 @@ class AddItemButton extends Component {
       category: "",
       price: "",
       description: "",
-      open: false
+      open: false,
     };
   }
 
@@ -43,7 +43,7 @@ class AddItemButton extends Component {
       name: this.state.name,
       category: this.state.category,
       description: this.state.description,
-      price: this.state.price
+      price: this.state.price,
     };
 
     console.log(newItem);
@@ -51,9 +51,9 @@ class AddItemButton extends Component {
     this.setState({ open: false });
   };
 
-  handleChange = event => {
+  handleChange = (event) => {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     });
   };
 
@@ -70,7 +70,7 @@ class AddItemButton extends Component {
           style={{
             position: "fixed",
             bottom: 80,
-            right: 80
+            right: 80,
           }}
           onClick={this.handleOpen}
         >
@@ -143,9 +143,7 @@ class AddItemButton extends Component {
 
 AddItemButton.propTypes = {
   addItem: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
-export default connect(null, { addItem, getItems })(
-  withStyles(styles)(AddItemButton)
-);
+export default connect(null, { addItem })(withStyles(styles)(AddItemButton));

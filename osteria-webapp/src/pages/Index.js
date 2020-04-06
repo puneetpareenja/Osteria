@@ -1,15 +1,10 @@
 import React, { Component, Fragment } from "react";
 
-// Built Components
-import Navbar from "../components/Navbar";
-
 // Material UI
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid";
 import CssBaseline from "@material-ui/core/CssBaseline";
-// import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-// import Container from "@material-ui/core/Container";
 
 // Images
 import dineImage from "../images/dine.svg";
@@ -46,7 +41,6 @@ export class Index extends Component {
 
     return (
       <Fragment>
-        <Navbar />
         <Container>
           <Grid container component="main" className={classes.frame}>
             <CssBaseline />

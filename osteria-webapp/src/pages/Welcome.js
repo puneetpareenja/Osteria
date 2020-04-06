@@ -1,8 +1,5 @@
 import React, { Component, Fragment } from "react";
 
-// Built Components
-import Navbar from "../components/Navbar";
-
 // Material UI
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid";
@@ -82,7 +79,6 @@ export class Welcome extends Component {
 
     return (
       <Fragment>
-        <Navbar />
         <div>
           <Grid container spacing={2}>
             <Grid item xs={false} sm={7}>
