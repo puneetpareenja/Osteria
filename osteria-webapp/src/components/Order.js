@@ -59,7 +59,7 @@ export class Order extends Component {
           {itemsMarkUp}
           <Typography variant="body2" component="p"></Typography>
         </CardContent>
-        <Typography>{data.completed}</Typography>
+
         {data.completed ? null : (
           <CardActions className={classes.actions}>
             <Button

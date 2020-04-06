@@ -9,10 +9,6 @@ import CardActions from "@material-ui/core/CardActions";
 import Typography from "@material-ui/core/Typography";
 import DeleteItemButton from "./DeleteItemButton";
 import SpecialIconButton from "./SpecialItemButton";
-import IconButton from "@material-ui/core/IconButton";
-import UploadIcon from "@material-ui/icons/PublishOutlined";
-import { connect } from "react-redux";
-import { uploadItemImage } from "../redux/actions/dataActions";
 
 const styles = (theme) => ({
   root: {
@@ -73,19 +69,6 @@ class Item extends Component {
         </CardContent>
         {userType === "admin" ? (
           <CardActions className={classes.actions}>
-            <IconButton
-              aria-label="Upload Item Image"
-              onClick={this.handleEditPicture}
-            >
-              <UploadIcon color="primary" />
-            </IconButton>
-            <input
-              align="center"
-              type="file"
-              id="imageInput"
-              onChange={this.handleImageChange}
-              hidden="hidden"
-            />
             <SpecialIconButton itemId={item.itemId} special={item.special} />
             <DeleteItemButton itemId={item.itemId} name={item.name} />
           </CardActions>
@@ -95,4 +78,4 @@ class Item extends Component {
   }
 }
 
-export default connect(null, { uploadItemImage })(withStyles(styles)(Item));
+export default withStyles(styles)(Item);
